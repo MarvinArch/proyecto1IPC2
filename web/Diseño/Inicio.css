@@ -1,0 +1,38 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15/08/2021, 17:05:46
+    Author     : alpha
+*/
+body{
+    background-image: url("../Diseño/fondo.png");
+    background-size: cover;
+    
+}
+.titulo{
+    color: #fff;
+    font-style: oblique;
+    background:  #00000080;
+    margin: 0% 20%;
+    text-align: center;
+    padding: 20px;
+}
+
+.redireccion{
+    text-decoration: none;
+    padding: 25px 30px;
+    background: #3498db;
+    border-radius: 15px;
+}
+.redireccion:hover{
+    background: red;
+    
+}
+.fondo{
+    margin: 15% 0%;
+    display: flex;
+    justify-content: space-around;
+}
