@@ -17,7 +17,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Hola Mundo</h1>
         <form>
         <%
             consultas n1= new consultas();
