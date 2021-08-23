@@ -23,41 +23,25 @@
                 HttpSession sesion= request.getSession();
                 if (sesion.getAttribute("user")!=null && sesion.getAttribute("nivel")=="1") {
                     String usuario=sesion.getAttribute("user").toString();
-                    out.print("<p class='izquierda'>"+usuario+"</p>");
-                    out.print("<a href='iniciosesion.jsp?cerrar=true'><p class='derecha'>Cerrar Sesion</p></a><br>");
+                    out.print("<h5 class='izquierda'>"+usuario+"</h5>");
+                    out.print("<a href='iniciosesion.jsp?cerrar=true'><h5 class='derecha'>Cerrar Sesion</h5></a>");
                 }else{
                     response.sendRedirect("iniciosesion.jsp");
                 }
             %>
-            <h1 class="fondoTraslucido">Mi Muebleria</h1><br>
+            <br>
+            <h1 class="fondoTraslucido">Mi Muebleria</h1><p></p>
             <h3 class="fondoTraslucido">Area de Ensamblaje</h3>
             
         </div>
         
-        <br><br><br>
-        <form>
-        <%
-            consultas n1= new consultas();
-            n1.Pieza();
-            ArrayList<pieza> piezaInventario = n1.getPiezaInventario();
-            for (int i = 0; i < piezaInventario.size(); i++) {
-                    out.print("<input type='checkbox' name='pieza' value='"+piezaInventario.get(i).getCodigo()+"'>");
-                    out.print(piezaInventario.get(i).getNombre()+"<br>");
-                }
-        %>
-        <br><br><br>
-        <input type="submit" action="AreaFabrica.jsp" value="Imprimir">
-        <%
-            if (request.getParameterValues("pieza")==null) {
-                    
-            }else{
-                String[] mostrar=request.getParameterValues("pieza");
-                for (int i = 0; i < request.getParameterValues("pieza").length; i++) {
-                        out.print("<h1>"+mostrar[i]+"</h1>");
-                    }
-            }
-        %>
-        </form>
+        <div class="barra">
+            <a href="Area1/CrearPiezas.jsp" class="redireccion" >Agregar Piezas</a>
+            <a href="" class="redireccion">Ensamblar Mueble</a>
+            <a href="" class="redireccion">Modificar/eliminar piezas</a>
+            <a href="" class="redireccion">Informacion Piezas</a>
+            <a href="" class="redireccion">Informacion Ensambles</a>   
+        </div>
                 
     </body>
 </html>

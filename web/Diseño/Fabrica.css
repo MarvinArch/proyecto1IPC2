@@ -1,17 +1,17 @@
 
 .superior{
-    text-align: center;
     background-image: url("../Diseño/titulo.png");
     background-size: cover;
-    padding-top: 20px;
     background-repeat: no-repeat;
+    text-align: center;
     
 }
 
 .fondoTraslucido{
     display: inline-block;
-    background:  #34495e60; 
-    background-clip: padding-box;
+    background:  #34495e40;
+    background-clip: border-box;
+    padding: 0px 50px;
 }
 
 .derecha{
@@ -21,4 +21,16 @@
 .izquierda{
     text-align: left;
     float: left;
+}
+.barra{
+    background: #839192;
+    display: flex;
+    justify-content: space-around;
+    padding: 5px 0px;
+}
+
+.redireccion{
+    text-decoration: none;
+    padding: 0px 10px;
+    color: black;
 }
