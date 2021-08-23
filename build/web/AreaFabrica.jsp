@@ -14,10 +14,27 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Area de Ensamblaje</title>
+        <LINK rel=StyleSheet href="Diseño/Fabrica.css">
     </head>
     <body>
-        <h1>Hola Mundo</h1>
+        <div class="superior">
+            <%
+                HttpSession sesion= request.getSession();
+                if (sesion.getAttribute("user")!=null && sesion.getAttribute("nivel")=="1") {
+                    String usuario=sesion.getAttribute("user").toString();
+                    out.print("<p class='izquierda'>"+usuario+"</p>");
+                    out.print("<a href='iniciosesion.jsp?cerrar=true'><p class='derecha'>Cerrar Sesion</p></a><br>");
+                }else{
+                    response.sendRedirect("iniciosesion.jsp");
+                }
+            %>
+            <h1 class="fondoTraslucido">Mi Muebleria</h1><br>
+            <h3 class="fondoTraslucido">Area de Ensamblaje</h3>
+            
+        </div>
+        
+        <br><br><br>
         <form>
         <%
             consultas n1= new consultas();

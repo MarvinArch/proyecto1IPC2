@@ -33,7 +33,7 @@
                 HttpSession sesion = request.getSession();
                 sesion.setAttribute("user", Usuario);
                 if (area==1) {
-                    sesion.setAttribute("area", 1);
+                    sesion.setAttribute("nivel", "1");
                     response.sendRedirect("AreaFabrica.jsp");
                 }else if(area==2){
                     sesion.setAttribute("area", 2);
