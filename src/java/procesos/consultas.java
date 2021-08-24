@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -18,11 +19,12 @@ import java.util.ArrayList;
  * @author alpha
  */
 public class consultas {
-    String driver;
-    String url;
-    String uss;
-    String contra;
-    ArrayList<pieza> piezaInventario=new ArrayList<pieza>();;
+    private String driver;
+    private String url;
+    private String uss;
+    private String contra;
+    private final ArrayList<pieza> piezaInventario=new ArrayList<pieza>();
+    private final ArrayList<pieza> tipoPiezas=new ArrayList<pieza>();
     
     public consultas() {
         this.driver = "com.mysql.jdbc.Driver";
@@ -34,35 +36,66 @@ public class consultas {
        
     public void Pieza(){
         Connection conn;
-            PreparedStatement pst;
-            ResultSet rs;
-            int cont=0;
-            String []area= new String[5];
-            String sql= "select * from piezas";
-               
-            try{
-                Class.forName(this.driver);
-            
-                conn = DriverManager.getConnection(url,uss,contra);
-                pst=conn.prepareStatement(sql);
-            
-                rs=pst.executeQuery();
-            
-                while(rs.next()){
-                    piezaInventario.add(new pieza(rs.getString(2),rs.getString(3),rs.getInt(4),rs.getString(1)));
-                    
-                }
-            
-            
-                conn.close();
-            }catch(ClassNotFoundException | SQLException e){
-            
+        PreparedStatement pst;
+        ResultSet rs;
+        int cont=0;
+        String []area= new String[5];
+        String sql= "select * from mprima";
+        try{
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(url,uss,contra);
+            pst=conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+            while(rs.next()){
+                piezaInventario.add(new pieza(rs.getString(1),rs.getString(2),rs.getDouble(3)));
             }
+            conn.close();
+        }catch(ClassNotFoundException | SQLException e){
+            
+        }
         
+    }
+    
+    public void EliminarPieza(String codigo){
+        Connection conn;
+        Statement sta=null;
+        ResultSet rs;
+        String []area= new String[5];
+        String sql= "delete from mprima where codigo='"+codigo+"'";
+               
+        try{
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(url,uss,contra);
+            sta=conn.createStatement();
+            sta.executeUpdate(sql);
+            conn.close();
+        }catch(ClassNotFoundException | SQLException e){
+        }        
     }
 
     public ArrayList<pieza> getPiezaInventario() {
         return piezaInventario;
+    }
+    
+    public void AgregarPieza(String nombre){
+        Connection conn;
+        Statement sta=null;
+        ResultSet rs;
+        String []area= new String[5];
+        String sql= "INSERT INTO pieza VALUES('"+nombre+"')";
+               
+        try{
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(url,uss,contra);
+            sta=conn.createStatement();
+            sta.executeUpdate(sql);
+            conn.close();
+        }catch(ClassNotFoundException | SQLException e){
+        }        
+    }
+
+    public ArrayList<pieza> getTipoPiezas() {
+        return tipoPiezas;
     }
     
     

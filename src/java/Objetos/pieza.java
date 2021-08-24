@@ -12,14 +12,12 @@ package Objetos;
 public class pieza {
     private String nombre;
     private String codigo;
-    private int precio;
-    private String Tipo;
+    private double precio;
 
-    public pieza(String nombre, String codigo, int precio, String Tipo) {
+    public pieza(String nombre, String codigo, double precio) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.precio = precio;
-        this.Tipo = Tipo;
     }
 
     public String getNombre() {
@@ -38,21 +36,13 @@ public class pieza {
         this.codigo = codigo;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(int precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
-    public String getTipo() {
-        return Tipo;
-    }
-
-    public void setTipo(String Tipo) {
-        this.Tipo = Tipo;
-    }
-    
     
 }

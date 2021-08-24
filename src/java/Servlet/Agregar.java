@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,13 +11,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import procesos.consultas;
 
 /**
  *
  * @author alpha
  */
-public class Paginaensanble extends HttpServlet {
+public class Agregar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,16 +31,11 @@ public class Paginaensanble extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            HttpSession sesion = request.getSession();
-        if (sesion.getAttribute("user")!=null && sesion.getAttribute("area")!=null) {
-            out.print("<a href='iniciosesion.jsp?cerrar=true'><h5>cerrar Sesion</h5></a>");    
-            out.print("Inicio de sesion exitoso");                
-        }else{
-            out.print("<script>location.replace('iniciosesion.jsp);</script>");
-            response.sendRedirect("iniciosesion.jsp");
-        }
+        String nombre = request.getParameter("Npieza");
+        if (nombre!=null) {
+            consultas a1 = new consultas();
+            a1.AgregarPieza(nombre);
+            response.sendRedirect("Area1/CrearPiezas.jsp");
         }
     }
 

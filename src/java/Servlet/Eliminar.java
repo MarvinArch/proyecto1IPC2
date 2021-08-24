@@ -3,25 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import procesos.consultas;
 
 /**
  *
  * @author alpha
  */
-public class consultar extends HttpServlet {
+public class Eliminar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,21 +28,23 @@ public class consultar extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    String driver="com.mysql.jdbc.Driver";;
-    String url= "jdbc:mysql://localhost:3306/proyecto1";
-    String uss= "alpha23";
-    String contra= "f3fxbv12";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        String presionado=request.getParameter("Modificar");
+        if (presionado.equalsIgnoreCase("Eliminar")) {
+            String[] codigo=request.getParameterValues("eleccion");
+            consultas a1 = new consultas();
+            for (int i = 0; i < codigo.length; i++) {
+            a1.EliminarPieza(codigo[i]);
+            }
+            response.sendRedirect("Area1/ModificarEliminar.jsp");
+        }else if (presionado.equalsIgnoreCase("Modificar")) {
             
         }
         
-        
+           
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -60,32 +58,6 @@ public class consultar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Connection conn;
-            PreparedStatement pst;
-            ResultSet rs;
-            int cont=0;
-            String []area= new String[5];
-            String sql= "select * from piezas";
-               
-            try{
-                Class.forName(this.driver);
-            
-                conn = DriverManager.getConnection(url,uss,contra);
-                pst=conn.prepareStatement(sql);
-            
-                rs=pst.executeQuery();
-            
-                while(rs.next()){
-                    area[cont]=rs.getString(2);
-                    cont++;
-                }
-            
-            
-                conn.close();
-            }catch(ClassNotFoundException | SQLException e){
-            
-            }
-            out.print("<h1>adios mundo cruel</h1>");
         processRequest(request, response);
     }
 

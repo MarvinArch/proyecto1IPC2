@@ -34,7 +34,7 @@
                 sesion.setAttribute("user", Usuario);
                 if (area==1) {
                     sesion.setAttribute("nivel", "1");
-                    response.sendRedirect("AreaFabrica.jsp");
+                    response.sendRedirect("Area1/Area1.jsp");
                 }else if(area==2){
                     sesion.setAttribute("area", 2);
                     response.sendRedirect("salaventas.jsp");

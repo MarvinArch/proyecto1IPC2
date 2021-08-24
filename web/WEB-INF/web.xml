@@ -12,6 +12,14 @@
         <servlet-name>consultar</servlet-name>
         <servlet-class>consultar</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Eliminar</servlet-name>
+        <servlet-class>Servlet.Eliminar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Agregar</servlet-name>
+        <servlet-class>Servlet.Agregar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Paginaensanble</servlet-name>
         <url-pattern>/Paginaensanble</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>consultar</servlet-name>
         <url-pattern>/consultar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Eliminar</servlet-name>
+        <url-pattern>/Eliminar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Agregar</servlet-name>
+        <url-pattern>/Agregar</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

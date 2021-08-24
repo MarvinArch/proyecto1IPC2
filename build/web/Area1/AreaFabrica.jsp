@@ -14,8 +14,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Area de Ensamblaje</title>
-        <LINK rel=StyleSheet href="Diseño/Fabrica.css">
+        <LINK rel=StyleSheet href="../Diseño/Fabrica.css">
     </head>
     <body>
         <div class="superior">
@@ -24,9 +23,9 @@
                 if (sesion.getAttribute("user")!=null && sesion.getAttribute("nivel")=="1") {
                     String usuario=sesion.getAttribute("user").toString();
                     out.print("<h5 class='izquierda'>"+usuario+"</h5>");
-                    out.print("<a href='iniciosesion.jsp?cerrar=true'><h5 class='derecha'>Cerrar Sesion</h5></a>");
+                    out.print("<a href='../iniciosesion.jsp?cerrar=true'><h5 class='derecha'>Cerrar Sesion</h5></a>");
                 }else{
-                    response.sendRedirect("iniciosesion.jsp");
+                    response.sendRedirect("../iniciosesion.jsp");
                 }
             %>
             <br>
@@ -36,9 +35,10 @@
         </div>
         
         <div class="barra">
-            <a href="Area1/CrearPiezas.jsp" class="redireccion" >Agregar Piezas</a>
+            <a href="Area1.jsp" class="redireccion" >Inicio</a>
+            <a href="CrearPiezas.jsp" class="redireccion" >Agregar Piezas</a>
             <a href="" class="redireccion">Ensamblar Mueble</a>
-            <a href="" class="redireccion">Modificar/eliminar piezas</a>
+            <a href="ModificarEliminar.jsp" class="redireccion">Modificar/eliminar piezas</a>
             <a href="" class="redireccion">Informacion Piezas</a>
             <a href="" class="redireccion">Informacion Ensambles</a>   
         </div>
