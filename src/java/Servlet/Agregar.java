@@ -31,12 +31,28 @@ public class Agregar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String nombre = request.getParameter("Npieza");
-        if (nombre!=null) {
-            consultas a1 = new consultas();
-            a1.AgregarPieza(nombre);
-            response.sendRedirect("Area1/CrearPiezas.jsp");
+        String boton = request.getParameter("boton");
+        consultas a1 = new consultas();
+        if (boton.equalsIgnoreCase("Eliminar")) {
+            String nombre = request.getParameter("Npieza");
+            if (nombre!=null) {
+                a1.AgregarPieza(nombre);
+                response.sendRedirect("Area1/CrearPiezas.jsp");
+            }
+        }else if (boton.equalsIgnoreCase("Agregar")) {
+            String precio = request.getParameter("precio");
+            String tipo = request.getParameter("tipo");
+            int cantidad=Integer.parseInt(request.getParameter("cantidad"));
+            if (precio!=null) {
+                try{
+                    float prec= Float.parseFloat(precio);
+                    a1.AgregarInventarioPieza(tipo, prec, cantidad);
+                    response.sendRedirect("Area1/CrearPiezas.jsp");
+                }catch(Exception e){
+                }
+            }
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

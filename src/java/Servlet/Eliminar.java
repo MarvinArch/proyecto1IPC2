@@ -7,10 +7,12 @@ package Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.PageContext;
 import procesos.consultas;
 
 /**
@@ -32,15 +34,26 @@ public class Eliminar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String presionado=request.getParameter("Modificar");
+        String[] codigo=request.getParameterValues("eleccion");
+        consultas a1 = new consultas();
         if (presionado.equalsIgnoreCase("Eliminar")) {
-            String[] codigo=request.getParameterValues("eleccion");
-            consultas a1 = new consultas();
             for (int i = 0; i < codigo.length; i++) {
             a1.EliminarPieza(codigo[i]);
             }
             response.sendRedirect("Area1/ModificarEliminar.jsp");
         }else if (presionado.equalsIgnoreCase("Modificar")) {
+            try {
+                response.sendRedirect("Area1/ModificarEliminar.jsp?mo="+codigo[0]+"");
+            } catch (Exception e) {
+                response.sendRedirect("Area1/ModificarEliminar.jsp");
+            }
             
+        }else if (presionado.equalsIgnoreCase("Modificar Pieza")) {
+            String tipo = request.getParameter("tipo");
+            String precio = request.getParameter("precio");
+            String codigo1 = request.getParameter("cod");
+            a1.ModificarPieza(tipo, precio, codigo1);
+            response.sendRedirect("Area1/ModificarEliminar.jsp");
         }
         
            

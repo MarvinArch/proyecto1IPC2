@@ -39,7 +39,7 @@
             <a href="CrearPiezas.jsp" class="redireccion" >Agregar Piezas</a>
             <a href="" class="redireccion">Ensamblar Mueble</a>
             <a href="ModificarEliminar.jsp" class="redireccion">Modificar/eliminar piezas</a>
-            <a href="" class="redireccion">Informacion Piezas</a>
+            <a href="informacionPieza.jsp" class="redireccion">Informacion Piezas</a>
             <a href="" class="redireccion">Informacion Ensambles</a>   
         </div>
                 

@@ -20,6 +20,10 @@ public class pieza {
         this.precio = precio;
     }
 
+    public pieza(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getNombre() {
         return nombre;
     }
