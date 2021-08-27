@@ -33,10 +33,12 @@ public class Agregar extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String boton = request.getParameter("boton");
         consultas a1 = new consultas();
-        if (boton.equalsIgnoreCase("Eliminar")) {
+        if (boton.equalsIgnoreCase("Crear")) {
             String nombre = request.getParameter("Npieza");
+            int minimo= Integer.parseInt(request.getParameter("cantidadC"));
+            String mueble =request.getParameter("tipoM");
             if (nombre!=null) {
-                a1.AgregarPieza(nombre);
+                a1.AgregarPieza(nombre, minimo, mueble);
                 response.sendRedirect("Area1/CrearPiezas.jsp");
             }
         }else if (boton.equalsIgnoreCase("Agregar")) {

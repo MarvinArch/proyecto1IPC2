@@ -25,6 +25,7 @@ public class consultas {
     private String contra;
     private final ArrayList<pieza> piezaInventario=new ArrayList<pieza>();
     private final ArrayList<pieza> tipoPiezas=new ArrayList<pieza>();
+    private final ArrayList<String> tipoMueble=new ArrayList<String>();
     
     public consultas() {
         this.driver = "com.mysql.jdbc.Driver";
@@ -75,11 +76,11 @@ public class consultas {
         return piezaInventario;
     }
     
-    public void AgregarPieza(String nombre){
+    public void AgregarPieza(String nombre, int minimo, String mueble){
         Connection conn;
         Statement sta=null;
         ResultSet rs;
-        String sql= "INSERT INTO pieza VALUES('"+nombre+"')";
+        String sql= "INSERT INTO pieza VALUES('"+nombre+"', "+minimo+", '"+mueble+"')";
                
         try{
             Class.forName(this.driver);
@@ -114,6 +115,30 @@ public class consultas {
             
         }
         
+    }
+    public void TipoMueble(){
+        Connection conn;
+        PreparedStatement pst;
+        ResultSet rs;
+        int cont=0;
+        String sql= "select * from tipomueble";
+        try{
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(url,uss,contra);
+            pst=conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+            while(rs.next()){
+                tipoMueble.add(rs.getString(1));
+            }
+            conn.close();
+        }catch(ClassNotFoundException | SQLException e){
+            
+        }
+        
+    }
+
+    public ArrayList<String> getTipoMueble() {
+        return tipoMueble;
     }
     
     public void AgregarInventarioPieza(String nombre, float precio, int cantidad){

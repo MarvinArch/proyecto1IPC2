@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page session="true"%> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,5 +15,12 @@
     </head>
     <body>
         <i><%@ include file = "AreaFabrica.jsp" %></i>
+        <table class="default" >    
+        <tr>
+            <th>Tipo Mueble</th>
+            <th>Pieza</th>
+            <th>Cantidad</th>
+            <th>Estado</th>
+        </tr>
     </body>
 </html>

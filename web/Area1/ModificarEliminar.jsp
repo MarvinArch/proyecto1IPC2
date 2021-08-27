@@ -46,14 +46,8 @@
             </table>
             <input type="submit" name="Modificar" value="Eliminar">
             <input type="submit" name="Modificar" value="Modificar"><br><br>
-            <select id="id">
-                <option value="first">text1</option>
-                <option value="second">text2</option>
-                <option value="third">text3</option>
-            </select>
+            
 
-            
-            
            <%
             String variable=request.getParameter("mo");
             try{
@@ -66,17 +60,17 @@
                         }
                     }
                     out.print("<h1>Pieza a Modificar "+piezaInventario.get(posicion).getNombre()+"</h1>");
-                    out.print("<form method='POST' action='../Eliminar>");
+                    out.print("<form method='POST' action='../Eliminar'>");
                     n1.TipoPieza();
                     out.print("Eliga Nuevo tipo para Pieza");
-                    //out.print("<select name='tipo'>");
+                    out.print("<select name='tipo'>");
                     ArrayList<pieza> piezaTipo = n1.getTipoPiezas();
-                    /*for (int i = 0; i < piezaTipo.size(); i++) {
+                    for (int i = 0; i < piezaTipo.size(); i++) {
                         out.print("<option value='"+piezaTipo.get(i).getNombre()+"'>"+piezaTipo.get(i).getNombre()+"</option>");
-                    }*/
-                    //out.print("</select>");
+                    }
+                    out.print("</select>");
                     out.print("<br>Ingrese Nuevo precio <input type='text' name='precio' value='"+piezaInventario.get(posicion).getPrecio()+"'>");
-                    //out.print("<br><input type='checkbox' name='cod' value="+codigo+" style='display:none'>");
+                    out.print("<br>Confirma Modificacion<input type='checkbox' name='cod' value='"+codigo+"'>");
                     out.print("<br><input type='submit' value='Modificar Pieza' name='Modificar'>");
                     out.print("</form>");
                 }

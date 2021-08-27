@@ -21,15 +21,26 @@
         </p>
         <h3>Crear nuevo tipo de Pieza</h3>
         <FORM action="../Agregar" method="POST">
-            Nombre de la pieza <input type="text" name="Npieza">
-            <input type="submit" value="Eliminar" name="boton" />
+            Tipo de Mueble <SELECT name="tipoM">
+                <%
+                    consultas a1 = new consultas();
+                    a1.TipoMueble();
+                    ArrayList<String> mueblexist = a1.getTipoMueble();
+                    for (int i = 0; i < mueblexist.size(); i++) {
+                        out.print("<option value='"+mueblexist.get(i)+"'>"+mueblexist.get(i)+"</option>");
+                    }
+                %>
+            
+            </SELECT><br>
+            Nombre de la pieza <input type="text" name="Npieza"><br>
+            Cantidad Minima en Inventario <input type="number" name="cantidadC" value="1" min="1"><br>
+            <input type="submit" value="Crear" name="boton" />
         </FORM>
         <h3>Ingresar piezas al Inventario</h3>
         <div>
             <form action="../Agregar" method="POST">
                 Tipo de Pieza <SELECT name="tipo">
                 <%
-                    consultas a1 = new consultas();
                     a1.TipoPieza();
                     ArrayList<pieza> piezaInventario = a1.getTipoPiezas();
                     for (int i = 0; i < piezaInventario.size(); i++) {
