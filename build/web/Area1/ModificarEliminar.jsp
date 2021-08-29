@@ -49,6 +49,7 @@
             
 
            <%
+               
             String variable=request.getParameter("mo");
             try{
                 if (variable!=null && request.getParameter("mo")!=null) {
@@ -61,12 +62,12 @@
                     }
                     out.print("<h1>Pieza a Modificar "+piezaInventario.get(posicion).getNombre()+"</h1>");
                     out.print("<form method='POST' action='../Eliminar'>");
-                    n1.TipoPieza();
+                    n1.TipoPieza("pieza");
                     out.print("Eliga Nuevo tipo para Pieza");
                     out.print("<select name='tipo'>");
-                    ArrayList<pieza> piezaTipo = n1.getTipoPiezas();
+                    ArrayList<String> piezaTipo = n1.getTipoMueble();
                     for (int i = 0; i < piezaTipo.size(); i++) {
-                        out.print("<option value='"+piezaTipo.get(i).getNombre()+"'>"+piezaTipo.get(i).getNombre()+"</option>");
+                        out.print("<option value='"+piezaTipo.get(i).toString()+"'>"+piezaTipo.get(i).toString()+"</option>");
                     }
                     out.print("</select>");
                     out.print("<br>Ingrese Nuevo precio <input type='text' name='precio' value='"+piezaInventario.get(posicion).getPrecio()+"'>");

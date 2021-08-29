@@ -12,7 +12,10 @@ package Objetos;
 public class pieza {
     private String nombre;
     private String codigo;
+    private String mueble;
     private double precio;
+    private int minimo;
+    private int cantidad;
 
     public pieza(String nombre, String codigo, double precio) {
         this.nombre = nombre;
@@ -20,10 +23,31 @@ public class pieza {
         this.precio = precio;
     }
 
-    public pieza(String nombre) {
+    public pieza(String nombre, String mueble, int minimo, int cantidad) {
         this.nombre = nombre;
+        this.mueble = mueble;
+        this.minimo = minimo;
+        this.cantidad = cantidad;
     }
 
+    public int getMinimo() {
+        return minimo;
+    }
+
+    public void setMinimo(int minimo) {
+        this.minimo = minimo;
+    }
+
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+  
     public String getNombre() {
         return nombre;
     }
@@ -46,6 +70,14 @@ public class pieza {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public String getMueble() {
+        return mueble;
+    }
+
+    public void setMueble(String mueble) {
+        this.mueble = mueble;
     }
 
     

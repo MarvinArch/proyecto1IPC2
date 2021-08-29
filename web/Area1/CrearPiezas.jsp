@@ -24,7 +24,7 @@
             Tipo de Mueble <SELECT name="tipoM">
                 <%
                     consultas a1 = new consultas();
-                    a1.TipoMueble();
+                    a1.TipoPieza("tipomueble");
                     ArrayList<String> mueblexist = a1.getTipoMueble();
                     for (int i = 0; i < mueblexist.size(); i++) {
                         out.print("<option value='"+mueblexist.get(i)+"'>"+mueblexist.get(i)+"</option>");
@@ -41,10 +41,10 @@
             <form action="../Agregar" method="POST">
                 Tipo de Pieza <SELECT name="tipo">
                 <%
-                    a1.TipoPieza();
-                    ArrayList<pieza> piezaInventario = a1.getTipoPiezas();
+                    a1.TipoPieza("pieza");
+                    ArrayList<String> piezaInventario = a1.getTipoMueble();
                     for (int i = 0; i < piezaInventario.size(); i++) {
-                        out.print("<option value='"+piezaInventario.get(i).getNombre()+"'>"+piezaInventario.get(i).getNombre()+"</option>");
+                        out.print("<option value='"+piezaInventario.get(i).toString()+"'>"+piezaInventario.get(i).toString()+"</option>");
                     }
                 %>
             

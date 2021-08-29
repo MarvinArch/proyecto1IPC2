@@ -26,6 +26,7 @@ public class consultas {
     private final ArrayList<pieza> piezaInventario=new ArrayList<pieza>();
     private final ArrayList<pieza> tipoPiezas=new ArrayList<pieza>();
     private final ArrayList<String> tipoMueble=new ArrayList<String>();
+    private String[] informacion;
     
     public consultas() {
         this.driver = "com.mysql.jdbc.Driver";
@@ -95,33 +96,14 @@ public class consultas {
     public ArrayList<pieza> getTipoPiezas() {
         return tipoPiezas;
     }
-    
-    public void TipoPieza(){
+    //reutilizar este codigo para crear los arreglos de pieza y mueble para poder reutilizar codigo
+    public void TipoPieza(String tabla){
         Connection conn;
         PreparedStatement pst;
         ResultSet rs;
         int cont=0;
-        String sql= "select * from pieza";
-        try{
-            Class.forName(this.driver);
-            conn = DriverManager.getConnection(url,uss,contra);
-            pst=conn.prepareStatement(sql);
-            rs=pst.executeQuery();
-            while(rs.next()){
-                tipoPiezas.add(new pieza(rs.getString(1)));
-            }
-            conn.close();
-        }catch(ClassNotFoundException | SQLException e){
-            
-        }
-        
-    }
-    public void TipoMueble(){
-        Connection conn;
-        PreparedStatement pst;
-        ResultSet rs;
-        int cont=0;
-        String sql= "select * from tipomueble";
+        String sql= "select * from "+tabla;
+        tipoMueble.clear();
         try{
             Class.forName(this.driver);
             conn = DriverManager.getConnection(url,uss,contra);
@@ -134,8 +116,11 @@ public class consultas {
         }catch(ClassNotFoundException | SQLException e){
             
         }
+        int tamaño=tipoMueble.size();
+        informacion= new String[tamaño];
         
     }
+    
 
     public ArrayList<String> getTipoMueble() {
         return tipoMueble;
@@ -177,6 +162,41 @@ public class consultas {
             System.out.println("esa madre fallo");
         }        
     }
+
+    public String[] getInformacion() {
+        return informacion;
+    }
     
+    public void InforPieza(){
+        Connection conn;
+        PreparedStatement pst;
+        ResultSet rs;
+        int cont=0;
+        String sql= "select tipo, mueble, minimo from mprima , pieza where tipo=nombre";
+        tipoMueble.clear();
+        try{
+            String tipo= "xx";
+            int posicion=-1;
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(url,uss,contra);
+            pst=conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+            while(rs.next()){
+                if (!rs.getString(1).equals(tipo)) {
+                    piezaInventario.add(new pieza(rs.getString(1),rs.getString(2),rs.getInt(3),1));
+                    tipo = rs.getString(1);
+                    posicion++;
+                }else if (rs.getString(1).equals(tipo)) {
+                    piezaInventario.get(posicion).setCantidad(piezaInventario.get(posicion).getCantidad()+1);
+                }
+            }
+            conn.close();
+        }catch(ClassNotFoundException | SQLException e){
+            
+        }
+        int tamaño=tipoMueble.size();
+        informacion= new String[tamaño];
+        
+    }
     
 }
