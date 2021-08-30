@@ -30,6 +30,17 @@ public class pieza {
         this.cantidad = cantidad;
     }
 
+    public pieza(String nombre, double precio, int cantidad) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.cantidad = cantidad;
+    }
+
+    public pieza(String nombre, int cantidad) {
+        this.nombre = nombre;
+        this.cantidad = cantidad;
+    }
+
     public int getMinimo() {
         return minimo;
     }

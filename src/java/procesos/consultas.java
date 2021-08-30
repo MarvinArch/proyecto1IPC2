@@ -120,7 +120,30 @@ public class consultas {
         informacion= new String[tamaño];
         
     }
-    
+    //funcion para definir la cantidad de piezas que se necesitan para ensamblar un mueble
+    public void CantidadPieza(String mueble){
+        Connection conn;
+        PreparedStatement pst;
+        ResultSet rs;
+        int cont=0;
+        String sql= "select * from pieza where mueble='"+mueble+"'";
+        tipoMueble.clear();
+        try{
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(url,uss,contra);
+            pst=conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+            while(rs.next()){
+                tipoPiezas.add(new pieza(rs.getString(1),rs.getInt(4)));
+            }
+            conn.close();
+        }catch(ClassNotFoundException | SQLException e){
+            
+        }
+        int tamaño=tipoMueble.size();
+        informacion= new String[tamaño];
+        
+    }
 
     public ArrayList<String> getTipoMueble() {
         return tipoMueble;
@@ -197,6 +220,43 @@ public class consultas {
         int tamaño=tipoMueble.size();
         informacion= new String[tamaño];
         
+    }
+    
+    public ArrayList<String> infomueble(String mueble){
+        ArrayList<pieza> piezasImprimir=new ArrayList<pieza>();
+        ArrayList<String> lineaTexto=new ArrayList<String>();
+        double precio=0;
+        CantidadPieza(mueble);
+        int noPieza=tipoPiezas.size();
+        Pieza();
+        lineaTexto.add("El mueble"+mueble+" necesita de "+noPieza+" piezas ");
+        //Busca las piezas y su informacion
+        for (int i = 0; i < noPieza; i++) {
+            lineaTexto.add(tipoPiezas.get(i).getCantidad()+" "+tipoPiezas.get(i).getNombre()+" ");
+            int contador=-1;
+            for (int j = 0; j < piezaInventario.size(); j++) {
+                int limite = tipoPiezas.get(i).getCantidad();
+                int contador2=0;
+                if (contador2<=limite) {
+                    if (piezaInventario.get(j).getNombre().equals(tipoPiezas.get(i).getNombre())) {
+                        if (precio!=piezaInventario.get(j).getPrecio()) {
+                            piezasImprimir.add(new pieza(piezaInventario.get(j).getNombre(),piezaInventario.get(j).getPrecio(),1));
+                            contador++;
+                            precio=piezasImprimir.get(contador).getPrecio();
+                        }else if (precio==piezaInventario.get(j).getPrecio()) {
+                            piezasImprimir.get(contador).setCantidad(piezasImprimir.get(contador).getCantidad()+1);
+                        }
+                        contador2++;
+                    }
+                }else{
+                    j=piezaInventario.size();
+                }
+            }
+        }
+        for (int i = 0; i < piezasImprimir.size(); i++) {
+            lineaTexto.add(piezasImprimir.get(i).getCantidad()+" piezas con valor de "+piezasImprimir.get(i).getPrecio()+" ");
+        }
+        return lineaTexto;
     }
     
 }
