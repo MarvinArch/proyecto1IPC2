@@ -225,19 +225,26 @@ public class consultas {
     public ArrayList<String> infomueble(String mueble){
         ArrayList<pieza> piezasImprimir=new ArrayList<pieza>();
         ArrayList<String> lineaTexto=new ArrayList<String>();
+        lineaTexto.clear();
+        piezasImprimir.clear();
+        tipoPiezas.clear();
+        piezaInventario.clear();
         double precio=0;
         CantidadPieza(mueble);
         int noPieza=tipoPiezas.size();
+        int totalPiezas=0;
+        int contadorPieza=0;
         Pieza();
-        lineaTexto.add("El mueble"+mueble+" necesita de "+noPieza+" piezas ");
+        lineaTexto.add("El mueble "+mueble+" necesita de "+noPieza+" piezas ");
         //Busca las piezas y su informacion
         for (int i = 0; i < noPieza; i++) {
             lineaTexto.add(tipoPiezas.get(i).getCantidad()+" "+tipoPiezas.get(i).getNombre()+" ");
+            totalPiezas+=tipoPiezas.get(i).getCantidad();
             int contador=-1;
+            int contador2=0;
+            int limite = tipoPiezas.get(i).getCantidad();
             for (int j = 0; j < piezaInventario.size(); j++) {
-                int limite = tipoPiezas.get(i).getCantidad();
-                int contador2=0;
-                if (contador2<=limite) {
+                if (contador2<limite) {
                     if (piezaInventario.get(j).getNombre().equals(tipoPiezas.get(i).getNombre())) {
                         if (precio!=piezaInventario.get(j).getPrecio()) {
                             piezasImprimir.add(new pieza(piezaInventario.get(j).getNombre(),piezaInventario.get(j).getPrecio(),1));
@@ -247,15 +254,24 @@ public class consultas {
                             piezasImprimir.get(contador).setCantidad(piezasImprimir.get(contador).getCantidad()+1);
                         }
                         contador2++;
+                        contadorPieza++;
                     }
                 }else{
-                    j=piezaInventario.size();
+                    j=piezaInventario.size()+1;
                 }
             }
         }
-        for (int i = 0; i < piezasImprimir.size(); i++) {
-            lineaTexto.add(piezasImprimir.get(i).getCantidad()+" piezas con valor de "+piezasImprimir.get(i).getPrecio()+" ");
+        lineaTexto.add(";<br>");
+        if (contadorPieza==totalPiezas) {
+            for (int i = 0; i < piezasImprimir.size(); i++) {
+                lineaTexto.add("&#10143; "+piezasImprimir.get(i).getCantidad()+" "+piezasImprimir.get(i).getNombre()+" con valor de Q."+piezasImprimir.get(i).getPrecio()+" <br>");
+            }
+        }else{
+            lineaTexto.add("La cantidad de piezas en inventario para este mueble no es suficiente <br>");
         }
+        
+        
+        
         return lineaTexto;
     }
     
