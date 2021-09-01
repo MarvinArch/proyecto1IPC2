@@ -5,6 +5,7 @@
  */
 package procesos;
 
+import Objetos.mueble;
 import Objetos.pieza;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,6 +27,8 @@ public class consultas {
     private final ArrayList<pieza> piezaInventario=new ArrayList<pieza>();
     private final ArrayList<pieza> tipoPiezas=new ArrayList<pieza>();
     private final ArrayList<String> tipoMueble=new ArrayList<String>();
+    private final ArrayList<String> codigo=new ArrayList<String>();
+    private final ArrayList<mueble> muebleInventario=new ArrayList<mueble>();
     private String[] informacion;
     
     public consultas() {
@@ -34,8 +37,27 @@ public class consultas {
         this.uss = "alpha23";
         this.contra = "f3fxbv12";
     }
+    public String[] getInformacion() {
+        return informacion;
+    }
+    public ArrayList<String> getTipoMueble() {
+        return tipoMueble;
+    }
+    public ArrayList<pieza> getPiezaInventario() {
+        return piezaInventario;
+    }
+
+    public ArrayList<pieza> getTipoPiezas() {
+        return tipoPiezas;
+    }
+    public ArrayList<mueble> getMuebleInventario() {
+        return muebleInventario;
+    }
+
+    public ArrayList<String> getCodigo() {
+        return codigo;
+    }
     
-       
     public void Pieza(){
         Connection conn;
         PreparedStatement pst;
@@ -72,11 +94,6 @@ public class consultas {
         }catch(ClassNotFoundException | SQLException e){
         }        
     }
-
-    public ArrayList<pieza> getPiezaInventario() {
-        return piezaInventario;
-    }
-    
     public void AgregarPieza(String nombre, int minimo, String mueble){
         Connection conn;
         Statement sta=null;
@@ -92,10 +109,27 @@ public class consultas {
         }catch(ClassNotFoundException | SQLException e){
         }        
     }
-
-    public ArrayList<pieza> getTipoPiezas() {
-        return tipoPiezas;
+    
+    public boolean CrearMueble(String usuario, String fecha, String mueble, float costo){
+        boolean exito;
+        Connection conn;
+        Statement sta=null;
+        ResultSet rs;
+        String sql= "INSERT INTO mueble_ensamblado VALUES(0,'"+usuario+"', '"+fecha+"', '"+mueble+"', "+costo+")";
+               
+        try{
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(url,uss,contra);
+            sta=conn.createStatement();
+            sta.executeUpdate(sql);
+            conn.close();
+            exito=true;
+        }catch(ClassNotFoundException | SQLException e){
+            exito=false;
+        }
+        return exito;
     }
+    
     //reutilizar este codigo para crear los arreglos de pieza y mueble para poder reutilizar codigo
     public void TipoPieza(String tabla){
         Connection conn;
@@ -111,6 +145,9 @@ public class consultas {
             rs=pst.executeQuery();
             while(rs.next()){
                 tipoMueble.add(rs.getString(1));
+                if (tabla.equals("tipomueble")) {
+                    muebleInventario.add(new mueble(rs.getString(1), rs.getFloat(2), 0));
+                }
             }
             conn.close();
         }catch(ClassNotFoundException | SQLException e){
@@ -145,10 +182,6 @@ public class consultas {
         
     }
 
-    public ArrayList<String> getTipoMueble() {
-        return tipoMueble;
-    }
-    
     public void AgregarInventarioPieza(String nombre, float precio, int cantidad){
         Connection conn;
         Statement sta=null;
@@ -184,10 +217,6 @@ public class consultas {
         }catch(ClassNotFoundException | SQLException e){
             System.out.println("esa madre fallo");
         }        
-    }
-
-    public String[] getInformacion() {
-        return informacion;
     }
     
     public void InforPieza(){
@@ -227,6 +256,7 @@ public class consultas {
         ArrayList<String> lineaTexto=new ArrayList<String>();
         lineaTexto.clear();
         piezasImprimir.clear();
+        codigo.clear();
         tipoPiezas.clear();
         piezaInventario.clear();
         double precio=0;
@@ -234,8 +264,10 @@ public class consultas {
         int noPieza=tipoPiezas.size();
         int totalPiezas=0;
         int contadorPieza=0;
+        double precioensamble=0;
         Pieza();
-        lineaTexto.add("El mueble "+mueble+" necesita de "+noPieza+" piezas ");
+        lineaTexto.add("El mueble "+mueble);
+        lineaTexto.add("Para su ensamble necesita de "+noPieza+" piezas <br>");
         //Busca las piezas y su informacion
         for (int i = 0; i < noPieza; i++) {
             lineaTexto.add(tipoPiezas.get(i).getCantidad()+" "+tipoPiezas.get(i).getNombre()+" ");
@@ -247,12 +279,16 @@ public class consultas {
                 if (contador2<limite) {
                     if (piezaInventario.get(j).getNombre().equals(tipoPiezas.get(i).getNombre())) {
                         if (precio!=piezaInventario.get(j).getPrecio()) {
-                            piezasImprimir.add(new pieza(piezaInventario.get(j).getNombre(),piezaInventario.get(j).getPrecio(),1));
+                            piezasImprimir.add(new pieza(piezaInventario.get(j).getNombre(),piezaInventario.get(j).getCodigo(), piezaInventario.get(j).getPrecio(),1));
                             contador++;
                             precio=piezasImprimir.get(contador).getPrecio();
+                            
+                            codigo.add(piezaInventario.get(j).getCodigo());
                         }else if (precio==piezaInventario.get(j).getPrecio()) {
                             piezasImprimir.get(contador).setCantidad(piezasImprimir.get(contador).getCantidad()+1);
+                            codigo.add(piezaInventario.get(j).getCodigo());
                         }
+                        
                         contador2++;
                         contadorPieza++;
                     }
@@ -260,18 +296,22 @@ public class consultas {
                     j=piezaInventario.size()+1;
                 }
             }
+            
         }
         lineaTexto.add(";<br>");
         if (contadorPieza==totalPiezas) {
             for (int i = 0; i < piezasImprimir.size(); i++) {
                 lineaTexto.add("&#10143; "+piezasImprimir.get(i).getCantidad()+" "+piezasImprimir.get(i).getNombre()+" con valor de Q."+piezasImprimir.get(i).getPrecio()+" <br>");
+                precioensamble+=(piezasImprimir.get(i).getPrecio()*piezasImprimir.get(i).getCantidad());
+            }
+            for (int i = 0; i < muebleInventario.size(); i++) {
+                if (muebleInventario.get(i).getNombre().equals(mueble)) {
+                    muebleInventario.get(i).setPrecioEnsamble((float)precioensamble);
+                }
             }
         }else{
             lineaTexto.add("La cantidad de piezas en inventario para este mueble no es suficiente <br>");
         }
-        
-        
-        
         return lineaTexto;
     }
     

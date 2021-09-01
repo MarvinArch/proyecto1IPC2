@@ -41,4 +41,10 @@ td{
     border-style: outset;
 }
 
-
+.ensamble{
+    padding: 20px;
+    background: yellow;
+    border: solid;
+    margin: 0% 10%;
+    
+}

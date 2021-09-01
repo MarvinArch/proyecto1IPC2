@@ -30,12 +30,14 @@ public class pieza {
         this.cantidad = cantidad;
     }
 
-    public pieza(String nombre, double precio, int cantidad) {
+    public pieza(String nombre, String codigo, double precio, int cantidad) {
         this.nombre = nombre;
+        this.codigo = codigo;
         this.precio = precio;
         this.cantidad = cantidad;
     }
 
+   
     public pieza(String nombre, int cantidad) {
         this.nombre = nombre;
         this.cantidad = cantidad;
