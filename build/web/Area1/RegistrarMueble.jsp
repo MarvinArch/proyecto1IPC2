@@ -18,6 +18,7 @@
     </head>
     <body>
         <%
+        boolean exito=false;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         consultas a2 = new consultas();
         if (request.getParameter("eleccion")!=null) {
@@ -25,16 +26,18 @@
                 a2.TipoPieza("tipomueble");
                 a2.infomueble(request.getParameter("eleccion"));
                 ArrayList<String> codigo=a2.getCodigo();
-                for (int i = 0; i < codigo.size(); i++) {
-                        out.print(codigo.get(i).toString());
-                    }
+                //se recoge un arreglo de codigos
                 ArrayList<mueble> muebleInve=a2.getMuebleInventario();
+                //se calcula el costo total del ensamblaje del mueble
                 for (int i = 0; i < muebleInve.size(); i++) {
                         if (muebleInve.get(i).getNombre().equals(request.getParameter("eleccion"))) {
                                 costo=muebleInve.get(i).getPrecioEnsamble();
                             }
                     }
-                boolean exito=a2.CrearMueble(session.getAttribute("user").toString(), dtf.format(LocalDateTime.now()).toString(), request.getParameter("eleccion"), costo);
+                if (codigo.size()>0) {
+                    exito=a2.CrearMueble(session.getAttribute("user").toString(), dtf.format(LocalDateTime.now()).toString(), request.getParameter("eleccion"), costo);
+                    }
+                
                 if (exito==true) {
                     for (int i = 0; i < codigo.size(); i++) {
                         a2.EliminarPieza(codigo.get(i).toString());

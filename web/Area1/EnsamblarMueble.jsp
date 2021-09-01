@@ -18,8 +18,8 @@
     </head>
     <body>
         <i><%@ include file = "AreaFabrica.jsp" %></i>
-        <h1>Empezamos el ensamblaje</h1>
-        
+        <h1 class="centro">Area de Ensamble</h1>
+        <i><%@ include file = "RegistrarMueble.jsp" %></i>
         <form method="POST" accion="RegistrarMueble.jsp">
         <%
             consultas a1 = new consultas();
@@ -41,7 +41,7 @@
                                 }
                         }
                     out.print("El costo de ensamble del mueble es de Q. "+muebleInventario.get(i).getPrecioEnsamble()+"<br>");
-                    out.print("<button type='submit' name ='eleccion' value='"+funcion[i]+"'>Ensamblar Mueble</button>");
+                    out.print("<div class='centro'><button type='submit' name ='eleccion' value='"+funcion[i]+"' class='modificar'>Ensamblar Mueble</button></div>");
                     out.print("</div>");
                     out.print("<br>");
                 }
@@ -52,6 +52,6 @@
 
         
         </form>
-        <i><%@ include file = "RegistrarMueble.jsp" %></i>
+        
     </body>
 </html>

@@ -37,10 +37,15 @@ public class Eliminar extends HttpServlet {
         String[] codigo=request.getParameterValues("eleccion");
         consultas a1 = new consultas();
         if (presionado.equalsIgnoreCase("Eliminar")) {
-            for (int i = 0; i < codigo.length; i++) {
-            a1.EliminarPieza(codigo[i]);
+            try {
+                for (int i = 0; i < codigo.length; i++) {
+                a1.EliminarPieza(codigo[i]);
+                }
+                response.sendRedirect("Area1/ModificarEliminar.jsp");
+            } catch (Exception e) {
+                response.sendRedirect("Area1/ModificarEliminar.jsp");
             }
-            response.sendRedirect("Area1/ModificarEliminar.jsp");
+            
         }else if (presionado.equalsIgnoreCase("Modificar")) {
             try {
                 response.sendRedirect("Area1/ModificarEliminar.jsp?mo="+codigo[0]+"");

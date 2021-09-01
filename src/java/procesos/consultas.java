@@ -310,9 +310,30 @@ public class consultas {
                 }
             }
         }else{
-            lineaTexto.add("La cantidad de piezas en inventario para este mueble no es suficiente <br>");
+            lineaTexto.add("&#9888; La cantidad de piezas en inventario para este mueble no es suficiente <br>");
         }
         return lineaTexto;
+    }
+    
+    public void InfoMueble(){
+        Connection conn;
+        PreparedStatement pst;
+        ResultSet rs;
+        int cont=0;
+        String sql= "select * from mueble_ensamblado, tipomueble where nombre_mueble=nombremueble;";
+        tipoMueble.clear();
+        try{
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(url,uss,contra);
+            pst=conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+            while(rs.next()){
+                muebleInventario.add(new mueble(rs.getString(1),rs.getString(4),rs.getString(2),rs.getFloat(7),rs.getFloat(5), rs.getDate(3)));
+            }
+            conn.close();
+        }catch(ClassNotFoundException | SQLException e){
+            
+        }    
     }
     
 }

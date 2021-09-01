@@ -18,7 +18,7 @@
     
     <body>
         <i><%@ include file = "AreaFabrica.jsp" %></i>
-        <h1>Modificar/Eliminar</h1>
+        <h1 class="centro">Modificar/Eliminar Piezas</h1>
         <form method="POST" action="../Eliminar">
             <table class="default" >
     
@@ -44,8 +44,10 @@
             }
             %>
             </table>
-            <input type="submit" name="Modificar" value="Eliminar">
-            <input type="submit" name="Modificar" value="Modificar"><br><br>
+            <div class="centro">
+                <input type="submit" name="Modificar" value="Eliminar" class="eliminar">
+                <input type="submit" name="Modificar" value="Modificar" class="modificar"><br><br>
+            </div>
             
 
            <%
@@ -60,19 +62,25 @@
                             posicion=i;
                         }
                     }
-                    out.print("<h1>Pieza a Modificar "+piezaInventario.get(posicion).getNombre()+"</h1>");
+                    out.print("<h1 class='centro'>Pieza a Modificar "+piezaInventario.get(posicion).getNombre()+" codigo "+piezaInventario.get(posicion).getCodigo()+"</h1>");
+                    //out.print("<div class= 'cuadroMod'>");
+                    out.print("<table >");
+                    out.print("<tr><th></th>");
+                    out.print("<th></th></tr>");
                     out.print("<form method='POST' action='../Eliminar'>");
                     n1.TipoPieza("pieza");
-                    out.print("Eliga Nuevo tipo para Pieza");
-                    out.print("<select name='tipo'>");
+                    out.print("<tr><td>Eliga Nuevo tipo para Pieza</td>");
+                    out.print("<td><select name='tipo'>");
                     ArrayList<String> piezaTipo = n1.getTipoMueble();
                     for (int i = 0; i < piezaTipo.size(); i++) {
                         out.print("<option value='"+piezaTipo.get(i).toString()+"'>"+piezaTipo.get(i).toString()+"</option>");
                     }
-                    out.print("</select>");
-                    out.print("<br>Ingrese Nuevo precio <input type='text' name='precio' value='"+piezaInventario.get(posicion).getPrecio()+"'>");
-                    out.print("<br>Confirma Modificacion<input type='checkbox' name='cod' value='"+codigo+"'>");
-                    out.print("<br><input type='submit' value='Modificar Pieza' name='Modificar'>");
+                    out.print("</select></td></tr>");
+                    out.print("<br><td>Ingrese Nuevo precio</td><td><input type='text' name='precio' value='"+piezaInventario.get(posicion).getPrecio()+"'></td></tr>");
+                    out.print("<br><td>Confirma Modificacion</td><td><input type='checkbox' name='cod' value='"+codigo+"'></td></tr></table >");
+                    out.print("<div class='centro'");
+                    out.print("<br><input type='submit' value='Modificar Pieza' name='Modificar'class='modificar'>");
+                    out.print("</div>");
                     out.print("</form>");
                 }
                }catch(Exception e){}

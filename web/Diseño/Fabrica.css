@@ -43,8 +43,95 @@ td{
 
 .ensamble{
     padding: 20px;
-    background: yellow;
-    border: solid;
-    margin: 0% 10%;
+    border-radius: 25px;
+    width: 50%;
+    margin-left: 25%;
+    background: #d7dbdd;
+    box-shadow: 9px 9px #999;
+    line-height: 25px
     
 }
+.modificar {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 24px;
+  margin-left: 5%;
+  cursor: pointer;
+  text-align: center;	
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.modificar:hover {background-color: #3e8e41}
+
+.modificar:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.eliminar {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;	
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color:  #e74c3c;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.eliminar:hover {background-color: #3e8e41}
+
+.eliminar:active {
+  background-color:  #ec7063;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+table { 
+    width: 80%; 
+    border-collapse: collapse;
+    margin-left: 10%;
+}
+tr:nth-of-type(odd) { 
+    background: #eee; 
+}
+th { 
+    background: #333; 
+    color: white; 
+    font-weight: bold; 
+}
+td, th { 
+    padding: 6px; 
+    border: 1px solid #ccc; 
+    text-align: left; 
+}
+.centro{
+    text-align: center;
+    padding-top: 30px;
+}
+.cuadroMod{
+    width: 60%;
+    margin-left: 20%;
+    text-align: left;
+    line-height: 35px;
+}
+.informacion{
+    padding-top: 50px;
+}
+.s5{
+    text-decoration: none;
+    cursor: default;
+    color: white;
+}
+
