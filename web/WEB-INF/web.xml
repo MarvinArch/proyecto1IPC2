@@ -21,8 +21,8 @@
         <servlet-class>Servlet.Agregar</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>prueba2</servlet-name>
-        <servlet-class>prueba2</servlet-class>
+        <servlet-name>ComprobarCliente</servlet-name>
+        <servlet-class>Servlet.ComprobarCliente</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Paginaensanble</servlet-name>
@@ -45,8 +45,8 @@
         <url-pattern>/Agregar</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>prueba2</servlet-name>
-        <url-pattern>/prueba2</url-pattern>
+        <servlet-name>ComprobarCliente</servlet-name>
+        <url-pattern>/ComprobarExistencia</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

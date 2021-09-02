@@ -40,7 +40,7 @@
                 
                 if (exito==true) {
                     for (int i = 0; i < codigo.size(); i++) {
-                        a2.EliminarPieza(codigo.get(i).toString());
+                        a2.EliminarPieza(codigo.get(i).toString(), "mprima");
                     }
                     out.print("El Mueble creado es "+request.getParameter("eleccion")+"<br>");
                     out.print("El Usuario que ensamblo el mueble es "+session.getAttribute("user"));

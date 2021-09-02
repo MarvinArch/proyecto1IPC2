@@ -21,7 +21,7 @@
                     out.print("<h5 class='izquierda'>"+usuario+"</h5>");
                     out.print("<a href='../iniciosesion.jsp?cerrar=true'><h5 class='derecha'>Cerrar Sesion</h5></a>");
                 }else{
-                    //response.sendRedirect("../iniciosesion.jsp");
+                    response.sendRedirect("../iniciosesion.jsp");
                 }
             %>
             <br>

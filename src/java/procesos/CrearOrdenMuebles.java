@@ -1,3 +1,5 @@
+package procesos;
+
 
 import Objetos.mueble;
 import java.util.ArrayList;
@@ -55,4 +57,9 @@ public class CrearOrdenMuebles {
                 });
         }
     }
+
+    public ArrayList<mueble> getMueble3() {
+        return mueble3;
+    }
+    
 }

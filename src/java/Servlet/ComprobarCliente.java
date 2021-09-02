@@ -3,19 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Servlet;
 
+import Objetos.Cliente;
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.out;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import procesos.ComprobarUsuario;
+
 
 /**
  *
  * @author alpha
+ * ComprobarExistencia
  */
-public class prueba2 extends HttpServlet {
+public class ComprobarCliente extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,19 +36,34 @@ public class prueba2 extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet prueba2</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet prueba2 at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            ComprobarUsuario usr = new ComprobarUsuario();
+        if (request.getParameter("btnBuscar")!=null) {
+            String nit = request.getParameter("nit");
+            String[] usuario = usr.BuscarCliente(nit);
+            if (usuario.length>1) {
+                HttpSession sesion = request.getSession(true);
+                ArrayList<Cliente> UsuarioEncontrado = sesion.getAttribute("usuario") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("usuario");
+                sesion.setAttribute("usuario", UsuarioEncontrado);
+                UsuarioEncontrado.add(new Cliente(nit,usuario[1],usuario[2]));
+                response.sendRedirect("Area2/salaventas.jsp");
+                
+            }else{
+                response.sendRedirect("Area2/salaventas.jsp?er=nt");
+            }
+            
         }
+        if (request.getParameter("btnAgregar")!=null) {
+            String nit = request.getParameter("nit");
+            String nombre = request.getParameter("nombre");
+            String direccion = request.getParameter("direccion");
+            usr.AgregarCliente(nit, nombre, direccion);
+            response.sendRedirect("ComprobarExistencia?btnBuscar=Buscar&nit="+nit+"");
+        }
+        
+        if (request.getParameter("Cancelar")!=null) {
+            response.sendRedirect("Area2/salaventas.jsp?li=si");
+        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

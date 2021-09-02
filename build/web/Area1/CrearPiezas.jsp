@@ -3,6 +3,8 @@
     Created on : 22/08/2021, 21:40:23
     Author     : alpha
 --%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="procesos.consultas"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true"%> 
 <LINK rel=StyleSheet href="Diseño/Fabrica.css">

@@ -5,6 +5,9 @@
 --%>
 
 
+<%@page import="Objetos.pieza"%>
+<%@page import="procesos.consultas"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="Servlet.Eliminar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true"%> 

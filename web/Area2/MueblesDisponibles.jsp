@@ -4,6 +4,7 @@
     Author     : alpha
 --%>
 
+<%@page import="procesos.CrearOrdenMuebles"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Objetos.mueble"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -19,20 +20,25 @@
         <i><%@ include file = "Area2.jsp" %></i>
         <div class="informacion"><table>
                 <tr>
-                    <th>Existencia</th>
+                    <%
+                        if (request.getParameter("or")!=null) {
+                            out.print("<th><a href='MueblesDisponibles.jsp' class='s5'>Existencia &#8595;</a></th>");
+                        }else{
+                            out.print("<th><a href='MueblesDisponibles.jsp?or=ad' class='s5'>Existencia &#8593;</a></th>");
+                        }
+                    %>
                     <th>Nombre Mueble</th>
                     <th>Precio</th>
                     
                 </tr>
         <%
-            
             CrearOrdenMuebles orden = new CrearOrdenMuebles();
-            if (!request.getParameter("or").equals(null)) {
+            if (request.getParameter("or")!=null) {
                 orden.OrdenMuebles(1);
             }else{
                 orden.OrdenMuebles(2);
             }
-            ArrayList<mueble> mueble3= orden.mueble3;
+            ArrayList<mueble> mueble3= orden.getMueble3();
             for (int i = 0; i < mueble3.size(); i++) {
                 out.print("<tr><td>"+mueble3.get(i).getExistencia() +"</td><td>"+mueble3.get(i).getNombre() +"</td><td>"+mueble3.get(i).getPrecioVenta() +"</td></tr>");
             }
