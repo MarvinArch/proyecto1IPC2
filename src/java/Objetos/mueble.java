@@ -18,6 +18,7 @@ public class mueble {
     private float precioVenta;
     private float precioEnsamble;
     private Date ensamble;
+    private int existencia;
 
     public mueble(String identificador, String nombre, String ensambladro, float precioVenta, float precioEnsamble, Date ensamble) {
         this.identificador = identificador;
@@ -28,8 +29,8 @@ public class mueble {
         this.ensamble = ensamble;
     }
 
-   
-
+    public mueble() {
+    }
     public mueble(String nombre, float precioVenta, float precioEnsamble) {
         this.nombre = nombre;
         this.precioVenta = precioVenta;
@@ -82,6 +83,14 @@ public class mueble {
 
     public void setEnsamble(Date ensamble) {
         this.ensamble = ensamble;
+    }
+
+    public int getExistencia() {
+        return existencia;
+    }
+
+    public void setExistencia(int existencia) {
+        this.existencia = existencia;
     }
 
    

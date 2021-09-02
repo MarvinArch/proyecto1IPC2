@@ -4,6 +4,9 @@
     Author     : alpha
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="Objetos.pieza"%>
+<%@page import="procesos.consultas"%>
 <%@page import="java.util.Comparator"%>
 <%@page import="java.util.Collections"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

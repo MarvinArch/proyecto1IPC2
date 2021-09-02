@@ -5,9 +5,7 @@
 --%>
 
 
-<%@page import="java.util.ArrayList"%>
-<%@page import="Objetos.pieza"%>
-<%@page import="procesos.consultas"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page session="true"%>    
 <!DOCTYPE html>

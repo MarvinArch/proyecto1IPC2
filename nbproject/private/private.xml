@@ -3,15 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/alpha/NetBeansProjects/Proyecto1/web/Area1/CrearPiezas.jsp</file>
-            <file>file:/home/alpha/NetBeansProjects/Proyecto1/web/Area1/AreaFabrica.jsp</file>
+            <file>file:/home/alpha/NetBeansProjects/Proyecto1/web/Area1/InformacionMueble.jsp</file>
             <file>file:/home/alpha/NetBeansProjects/Proyecto1/src/java/Servlet/Eliminar.java</file>
+            <file>file:/home/alpha/NetBeansProjects/Proyecto1/web/Area1/EnsamblarMueble.jsp</file>
             <file>file:/home/alpha/NetBeansProjects/Proyecto1/web/Area1/informacionPieza.jsp</file>
-            <file>file:/home/alpha/NetBeansProjects/Proyecto1/src/java/Servlet/Agregar.java</file>
-            <file>file:/home/alpha/NetBeansProjects/Proyecto1/web/iniciosesion.jsp</file>
+            <file>file:/home/alpha/NetBeansProjects/Proyecto1/src/java/Objetos/mueble.java</file>
             <file>file:/home/alpha/NetBeansProjects/Proyecto1/src/java/procesos/consultas.java</file>
             <file>file:/home/alpha/NetBeansProjects/Proyecto1/src/java/Objetos/pieza.java</file>
             <file>file:/home/alpha/NetBeansProjects/Proyecto1/web/Area1/ModificarEliminar.jsp</file>
+            <file>file:/home/alpha/NetBeansProjects/Proyecto1/web/Diseño/Fabrica.css</file>
+            <file>file:/home/alpha/NetBeansProjects/Proyecto1/web/Area1/RegistrarMueble.jsp</file>
         </group>
     </open-files>
 </project-private>

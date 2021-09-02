@@ -1,13 +1,11 @@
 <%-- 
-    Document   : AreaFabrica
-    Created on : 15/08/2021, 21:53:22
+    Document   : Area2
+    Created on : 1/09/2021, 17:09:46
     Author     : alpha
 --%>
 
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page session="true"%>    
+<%@page session="true"%> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,12 +16,12 @@
         <div class="superior">
             <%
                 HttpSession sesion= request.getSession();
-                if (sesion.getAttribute("user")!=null && sesion.getAttribute("nivel")=="1") {
+                if (sesion.getAttribute("user")!=null && sesion.getAttribute("nivel")=="2") {
                     String usuario=sesion.getAttribute("user").toString();
                     out.print("<h5 class='izquierda'>"+usuario+"</h5>");
                     out.print("<a href='../iniciosesion.jsp?cerrar=true'><h5 class='derecha'>Cerrar Sesion</h5></a>");
                 }else{
-                    response.sendRedirect("../iniciosesion.jsp");
+                    //response.sendRedirect("../iniciosesion.jsp");
                 }
             %>
             <br>
@@ -33,12 +31,13 @@
         </div>
         
         <div class="barra">
-            <a href="Area1.jsp" class="redireccion" >Inicio</a>
-            <a href="CrearPiezas.jsp" class="redireccion" >Agregar Piezas</a>
-            <a href="EnsamblarMueble.jsp" class="redireccion">Ensamblar Mueble</a>
-            <a href="ModificarEliminar.jsp" class="redireccion">Modificar/eliminar piezas</a>
-            <a href="informacionPieza.jsp" class="redireccion">Informacion Piezas</a>
-            <a href="InformacionMueble.jsp" class="redireccion">Informacion Ensambles</a>   
+            <a href="salaventas.jsp" class="redireccion" >Sala Venta</a>
+            <a href="" class="redireccion" >Devoluciones</a>
+            <a href="" class="redireccion">Devoluciones cliente</a>
+            <a href="" class="redireccion">Compras cliente</a>
+            <a href="MueblesDisponibles.jsp" class="redireccion">Inventario de Muebles</a>
+            <a href="" class="redireccion">Detalles factura</a>
+            <a href="" class="redireccion">Ventas del dia</a>   
         </div>
                 
     </body>

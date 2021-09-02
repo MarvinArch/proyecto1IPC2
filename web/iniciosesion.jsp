@@ -36,10 +36,10 @@
                     sesion.setAttribute("nivel", "1");
                     response.sendRedirect("Area1/Area1.jsp");
                 }else if(area==2){
-                    sesion.setAttribute("area", 2);
-                    response.sendRedirect("salaventas.jsp");
+                    sesion.setAttribute("nivel", "2");
+                    response.sendRedirect("Area2/salaventas.jsp");
                 }else if (area==3){
-                    sesion.setAttribute("area", 3);
+                    sesion.setAttribute("nivel", "3");
                     //response.sendRedirect("");                
                 }else{
                 out.print("<img src='Diseño/alerta.png'class='imagen'><h3 class= 'alerta'>El usuario y contraseña ingresados no coinciden</h3>");

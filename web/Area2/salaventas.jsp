@@ -13,6 +13,7 @@
         <title>Sala de ventas</title>
     </head>
     <body>
+        <i><%@ include file = "Area2.jsp" %></i>
         <h1>sala de ventas</h1>
     </body>
 </html>

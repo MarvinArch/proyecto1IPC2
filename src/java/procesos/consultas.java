@@ -37,27 +37,13 @@ public class consultas {
         this.uss = "alpha23";
         this.contra = "f3fxbv12";
     }
-    public String[] getInformacion() {
-        return informacion;
-    }
-    public ArrayList<String> getTipoMueble() {
-        return tipoMueble;
-    }
-    public ArrayList<pieza> getPiezaInventario() {
-        return piezaInventario;
-    }
-
-    public ArrayList<pieza> getTipoPiezas() {
-        return tipoPiezas;
-    }
-    public ArrayList<mueble> getMuebleInventario() {
-        return muebleInventario;
-    }
-
     public ArrayList<String> getCodigo() {
         return codigo;
     }
-    
+    /**
+    *Genera un arreglo de todas las piezas existentes en la base de datos 
+    * la informacion incluye nombre mueble codigo y precio    
+    */
     public void Pieza(){
         Connection conn;
         PreparedStatement pst;
@@ -79,11 +65,14 @@ public class consultas {
         
     }
     
-    public void EliminarPieza(String codigo){
+    /**
+    *Elimina una fila de la base de datos recibe como paramtro el nombre de la tabla en donde debe buscar 
+    */
+    public void EliminarPieza(String codigo, String tabla){
         Connection conn;
         Statement sta=null;
         ResultSet rs;
-        String sql= "delete from mprima where codigo='"+codigo+"'";
+        String sql= "delete from "+tabla+" where codigo='"+codigo+"'";
                
         try{
             Class.forName(this.driver);
@@ -94,6 +83,10 @@ public class consultas {
         }catch(ClassNotFoundException | SQLException e){
         }        
     }
+    
+    /**
+    *Crea un pieza nueva en la base de datos
+    */
     public void AgregarPieza(String nombre, int minimo, String mueble){
         Connection conn;
         Statement sta=null;
@@ -110,6 +103,9 @@ public class consultas {
         }        
     }
     
+    /**
+    *Agrega un mueble a la base de datos 
+    */
     public boolean CrearMueble(String usuario, String fecha, String mueble, float costo){
         boolean exito;
         Connection conn;
@@ -130,7 +126,11 @@ public class consultas {
         return exito;
     }
     
-    //reutilizar este codigo para crear los arreglos de pieza y mueble para poder reutilizar codigo
+    /**
+    * Genera un arreglo de String
+    * Si el parametro recibido es pieza el arreglo sera de nombres de los tipos de piezas que existan
+    * En cambio si el parametro es tipomueble creara el arreglo de nombres de los muebles existentes
+    */
     public void TipoPieza(String tabla){
         Connection conn;
         PreparedStatement pst;
@@ -152,12 +152,13 @@ public class consultas {
             conn.close();
         }catch(ClassNotFoundException | SQLException e){
             
-        }
-        int tamaño=tipoMueble.size();
-        informacion= new String[tamaño];
-        
+        }        
     }
-    //funcion para definir la cantidad de piezas que se necesitan para ensamblar un mueble
+    
+    
+    /**
+    * genera un arreglo de cantidad de piezas necesaria para ensamblar mueble
+    */
     public void CantidadPieza(String mueble){
         Connection conn;
         PreparedStatement pst;
@@ -177,11 +178,12 @@ public class consultas {
         }catch(ClassNotFoundException | SQLException e){
             
         }
-        int tamaño=tipoMueble.size();
-        informacion= new String[tamaño];
         
     }
-
+    
+    /**
+    * Agrega una pieza a la base de datos recibe de parametro el nombre de la pieza, el precio y la cantidad que se va agregar
+    */
     public void AgregarInventarioPieza(String nombre, float precio, int cantidad){
         Connection conn;
         Statement sta=null;
@@ -196,11 +198,13 @@ public class consultas {
                 sta.executeUpdate(sql);
             }
             conn.close();
-            
         }catch(ClassNotFoundException | SQLException e){
         }        
     }
     
+    /**
+    *Cambia el nombre y el precio de una pieza
+    */
     public void ModificarPieza(String nombre, String precio, String codigo){
         Connection conn;
         Statement sta=null;
@@ -219,6 +223,9 @@ public class consultas {
         }        
     }
     
+    /**
+    * Crea un arreglo de los tipos de piezas y las cantidades existentes en la base de datos
+    */
     public void InforPieza(){
         Connection conn;
         PreparedStatement pst;
@@ -246,11 +253,11 @@ public class consultas {
         }catch(ClassNotFoundException | SQLException e){
             
         }
-        int tamaño=tipoMueble.size();
-        informacion= new String[tamaño];
-        
     }
-    
+    /**
+    * Genera un arreglo con la informacin completa de los muebles ensamblados en area 1
+    * devolviendo un arreglo con todos los datos de los muebles en forma de String para ser imprimido en el jsp que lo llame
+    */
     public ArrayList<String> infomueble(String mueble){
         ArrayList<pieza> piezasImprimir=new ArrayList<pieza>();
         ArrayList<String> lineaTexto=new ArrayList<String>();
@@ -315,13 +322,16 @@ public class consultas {
         return lineaTexto;
     }
     
+    /**
+    *Genera un arreglo de todos los muebles existentes en la base de datos 
+    * la informacion incluye ensamblador, fecha de ensamble, costo, precio venta
+    */
     public void InfoMueble(){
         Connection conn;
         PreparedStatement pst;
         ResultSet rs;
         int cont=0;
         String sql= "select * from mueble_ensamblado, tipomueble where nombre_mueble=nombremueble;";
-        tipoMueble.clear();
         try{
             Class.forName(this.driver);
             conn = DriverManager.getConnection(url,uss,contra);
@@ -336,4 +346,20 @@ public class consultas {
         }    
     }
     
+    public String[] getInformacion() {
+        return informacion;
+    }
+    public ArrayList<String> getTipoMueble() {
+        return tipoMueble;
+    }
+    public ArrayList<pieza> getPiezaInventario() {
+        return piezaInventario;
+    }
+
+    public ArrayList<pieza> getTipoPiezas() {
+        return tipoPiezas;
+    }
+    public ArrayList<mueble> getMuebleInventario() {
+        return muebleInventario;
+    }
 }
