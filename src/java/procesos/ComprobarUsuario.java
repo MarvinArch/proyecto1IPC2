@@ -109,5 +109,43 @@ public class ComprobarUsuario {
         }catch(ClassNotFoundException | SQLException e){
         }        
     }
+    public void NoFactura(String vendedor, String precio, String cliente){
+        int factura=0;
+        Connection conn;
+        Statement sta=null;
+        ResultSet rs;
+        String sql= "INSERT INTO factura VALUES( 0, "+precio+", '"+vendedor+"', '"+cliente+"')";
+        try{
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(url,uss,contra);
+            sta=conn.createStatement();
+            sta.executeUpdate(sql);
+            
+            conn.close();
+        }catch(ClassNotFoundException | SQLException e){
+        }
+    }
     
+    public int BuscarFactura(){
+        Connection conn;
+        PreparedStatement pst;
+        ResultSet rs;
+        int cont=0;
+        String sql= "select * from factura";// and contraseña='"+contras+"'";
+        try{
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(url,uss,contra);
+            pst=conn.prepareStatement(sql);
+            
+            rs=pst.executeQuery();
+            
+            while(rs.next()){
+               cont=rs.getInt(1);
+            }
+            conn.close();
+        }catch(ClassNotFoundException | SQLException e){
+            
+        }
+        return cont;    
+    }
 }

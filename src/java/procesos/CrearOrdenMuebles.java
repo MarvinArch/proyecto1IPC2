@@ -26,7 +26,7 @@ public class CrearOrdenMuebles {
         a1.TipoPieza("tipomueble");
         
         ArrayList<String> mueble1= a1.getTipoMueble();
-        a1.InfoMueble();
+        a1.InfoMueble("not");
         ArrayList<mueble> muebleInventario=a1.getMuebleInventario();
         for (int i = 0; i < mueble1.size(); i++) {
             String mueble2=mueble1.get(i).toString();

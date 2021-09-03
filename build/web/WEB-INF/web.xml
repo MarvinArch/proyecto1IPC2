@@ -24,6 +24,10 @@
         <servlet-name>ComprobarCliente</servlet-name>
         <servlet-class>Servlet.ComprobarCliente</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VentaMueble</servlet-name>
+        <servlet-class>Servlet.VentaMueble</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Paginaensanble</servlet-name>
         <url-pattern>/Paginaensanble</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>ComprobarCliente</servlet-name>
         <url-pattern>/ComprobarExistencia</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VentaMueble</servlet-name>
+        <url-pattern>/VentaMueble</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -1,0 +1,41 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2/09/2021, 17:36:21
+    Author     : alpha
+*/
+
+.izquierdabody{
+    width: 35%;
+    border-right: solid;
+    border-top: solid;
+    border-bottom: solid;
+    text-align: justify;
+    float: left;
+    padding-left: 20px;
+    padding-bottom: 30px;
+}
+.derechabody{   
+    width: 60%;
+    float: left;
+    border-top: solid;
+    padding-left: 10px;
+    padding-top: 20px;
+}
+.izquierdaform{
+    width: 39%;
+    float: left;
+    display: inline;
+    margin-bottom: 5px;
+}
+
+.derechaform{
+    width: 49%;
+    float: left;
+    display: inline;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}

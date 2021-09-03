@@ -43,3 +43,12 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.botonInicio{
+    border-radius: 20px;
+    padding: 10px 20px;
+    background: #0cb32f;
+    color: white;
+    -webkit-text-stroke: 50% black;
+    font-size: 2vw;
+}

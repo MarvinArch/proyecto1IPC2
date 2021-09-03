@@ -29,7 +29,7 @@
         <th>Usuario Ensamblador</th>
         <%
             consultas a1 = new consultas();
-            a1.InfoMueble();
+            a1.InfoMueble("not");
             //array de pieza en el inventario en la base de datos
             ArrayList<mueble> tipoPiezas=a1.getMuebleInventario();
         

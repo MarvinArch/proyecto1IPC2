@@ -23,7 +23,7 @@
                 <h2>Iniciar de sesion</h2>
                 Usuario&nbsp&nbsp&nbsp<input type="text" name="usuario"><br><br>
                 Contraseña <input type="password" name="contra"><br><br><br>
-                <input type="submit" value="Inicio" name="iniciar">
+                <input class="botonInicio" type="submit" value="Inicio de Sesion" name="iniciar">
                 <%
             ComprobarUsuario autorizado= new ComprobarUsuario();
             if (request.getParameter("iniciar")!=null) {

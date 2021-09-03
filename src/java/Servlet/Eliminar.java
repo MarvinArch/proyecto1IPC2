@@ -39,7 +39,7 @@ public class Eliminar extends HttpServlet {
         if (presionado.equalsIgnoreCase("Eliminar")) {
             try {
                 for (int i = 0; i < codigo.length; i++) {
-                a1.EliminarPieza(codigo[i], "mprima");
+                a1.EliminarPieza(codigo[i], "mprima", "codigo");
                 }
                 response.sendRedirect("Area1/ModificarEliminar.jsp");
             } catch (Exception e) {

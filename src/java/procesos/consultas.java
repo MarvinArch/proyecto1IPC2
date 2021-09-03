@@ -30,6 +30,7 @@ public class consultas {
     private final ArrayList<String> codigo=new ArrayList<String>();
     private final ArrayList<mueble> muebleInventario=new ArrayList<mueble>();
     private String[] informacion;
+    private mueble mueble;
     
     public consultas() {
         this.driver = "com.mysql.jdbc.Driver";
@@ -68,11 +69,11 @@ public class consultas {
     /**
     *Elimina una fila de la base de datos recibe como paramtro el nombre de la tabla en donde debe buscar 
     */
-    public void EliminarPieza(String codigo, String tabla){
+    public void EliminarPieza(String codigo, String tabla, String columna){
         Connection conn;
         Statement sta=null;
         ResultSet rs;
-        String sql= "delete from "+tabla+" where codigo='"+codigo+"'";
+        String sql= "delete from "+tabla+" where "+columna+"='"+codigo+"'";
                
         try{
             Class.forName(this.driver);
@@ -322,11 +323,8 @@ public class consultas {
         return lineaTexto;
     }
     
-    /**
-    *Genera un arreglo de todos los muebles existentes en la base de datos 
-    * la informacion incluye ensamblador, fecha de ensamble, costo, precio venta
-    */
-    public void InfoMueble(){
+    
+    public void InfoMueble(String codigo){
         Connection conn;
         PreparedStatement pst;
         ResultSet rs;
@@ -340,10 +338,38 @@ public class consultas {
             while(rs.next()){
                 muebleInventario.add(new mueble(rs.getString(1),rs.getString(4),rs.getString(2),rs.getFloat(7),rs.getFloat(5), rs.getDate(3)));
             }
+            if (!codigo.equals("not")) {
+                for (int i = 0; i < muebleInventario.size(); i++) {
+                    if (muebleInventario.get(i).getIdentificador().equals(codigo)) {
+                        mueble = muebleInventario.get(i);
+                    }
+                }
+            }
             conn.close();
         }catch(ClassNotFoundException | SQLException e){
             
         }    
+    }
+    
+    public void RegistrarVenta(ArrayList<mueble> vendidos, String cliente, String vendedor, String fecha, int factura){
+        Connection conn;
+        Statement sta=null;
+        ResultSet rs;
+        try{
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(url,uss,contra);
+            sta=conn.createStatement();
+            for (int i = 0; i < vendidos.size(); i++) {
+                int identificador=Integer.parseInt(vendidos.get(i).getIdentificador());
+                String sql= "INSERT INTO mueble_vendido  VALUES("+identificador+", '"+vendedor+"', '"+fecha+"', '"
+                        +vendidos.get(i).getNombre()+"', "+vendidos.get(i).getPrecioEnsamble()+", "
+                        +vendidos.get(i).getPrecioVenta()+", '"+cliente+"', "+factura+")";
+                sta.executeUpdate(sql);
+            }
+            
+            conn.close();
+        }catch(ClassNotFoundException | SQLException e){
+        }
     }
     
     public String[] getInformacion() {
@@ -362,4 +388,9 @@ public class consultas {
     public ArrayList<mueble> getMuebleInventario() {
         return muebleInventario;
     }
+
+    public mueble getMueble() {
+        return mueble;
+    }
+    
 }
