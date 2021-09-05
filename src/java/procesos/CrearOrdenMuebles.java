@@ -2,6 +2,7 @@ package procesos;
 
 
 import Objetos.mueble;
+import Objetos.muebleEnsamblado;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -27,7 +28,7 @@ public class CrearOrdenMuebles {
         
         ArrayList<String> mueble1= a1.getTipoMueble();
         a1.InfoMueble("not");
-        ArrayList<mueble> muebleInventario=a1.getMuebleInventario();
+        ArrayList<muebleEnsamblado> muebleInventario=a1.getMuebleInventario();
         for (int i = 0; i < mueble1.size(); i++) {
             String mueble2=mueble1.get(i).toString();
             int contado=-1;

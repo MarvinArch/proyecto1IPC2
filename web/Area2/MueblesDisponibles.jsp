@@ -4,6 +4,8 @@
     Author     : alpha
 --%>
 
+<%@page import="Objetos.muebleEnsamblado"%>
+<%@page import="procesos.consultas"%>
 <%@page import="procesos.CrearOrdenMuebles"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Objetos.mueble"%>
@@ -13,7 +15,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <LINK rel=StyleSheet href="../Diseño/Diseño.css">
         <title>Inventario de Muebles</title>
     </head>
     <body>
@@ -45,5 +46,29 @@
             }
         %>
         </table></div>
+        <br><br>
+        <div>
+            <table>
+                <tr>
+                    <th>Codigo Producto</th>
+                    <th>Tipo Mueble</th>
+                    <th>Precio</th>
+                </tr>
+                <%
+                    consultas cons = new consultas();
+                    cons.InfoMueble("not");
+                    ArrayList<muebleEnsamblado> inventario= cons.getMuebleInventario();
+                    for (int i = 0; i < inventario.size(); i++) {
+                %>
+                        <tr>
+                            <td><%=inventario.get(i).getIdentificador()%></td>
+                            <td><%=inventario.get(i).getNombre()%></td>
+                            <td><%=inventario.get(i).getPrecioVenta()%></td>
+                        </tr>
+                <%
+                    }
+                %>
+            </table>
+        </div>
     </body>
 </html>

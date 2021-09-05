@@ -130,11 +130,11 @@ public class VentaMueble extends HttpServlet {
                     eliminar.EliminarPieza(muebleCarrito.get(i).getIdentificador(), "mueble_ensamblado", "identificador");
                 }
                 eliminar.RegistrarVenta(muebleCarrito, cliente1, Vendedor, fecha, fac);
-              
+                response.sendRedirect("Area2/salaventas.jsp"); 
             } catch (Exception e) {
                 response.sendRedirect("Area2/salaventas.jsp?er=40");
             }
-                response.sendRedirect("Area2/salaventas.jsp"); 
+            
         }
     }
 

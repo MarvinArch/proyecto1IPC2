@@ -5,7 +5,9 @@
  */
 package procesos;
 
+import Objetos.MuebleVendido;
 import Objetos.mueble;
+import Objetos.muebleEnsamblado;
 import Objetos.pieza;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,7 +30,7 @@ public class consultas {
     private final ArrayList<pieza> tipoPiezas=new ArrayList<pieza>();
     private final ArrayList<String> tipoMueble=new ArrayList<String>();
     private final ArrayList<String> codigo=new ArrayList<String>();
-    private final ArrayList<mueble> muebleInventario=new ArrayList<mueble>();
+    private final ArrayList<muebleEnsamblado> muebleInventario=new ArrayList<muebleEnsamblado>();
     private String[] informacion;
     private mueble mueble;
     
@@ -68,6 +70,7 @@ public class consultas {
     
     /**
     *Elimina una fila de la base de datos recibe como paramtro el nombre de la tabla en donde debe buscar 
+    * Codigo de objeto a eliminar y columna
     */
     public void EliminarPieza(String codigo, String tabla, String columna){
         Connection conn;
@@ -86,7 +89,8 @@ public class consultas {
     }
     
     /**
-    *Crea un pieza nueva en la base de datos
+    *Crea un pieza nueva en la base de datos 
+    * parte de la funcion incertar piezas
     */
     public void AgregarPieza(String nombre, int minimo, String mueble){
         Connection conn;
@@ -105,7 +109,7 @@ public class consultas {
     }
     
     /**
-    *Agrega un mueble a la base de datos 
+    *Agrega un mueble a la base de datos luego de ser ensamblado por el usuario 
     */
     public boolean CrearMueble(String usuario, String fecha, String mueble, float costo){
         boolean exito;
@@ -147,7 +151,7 @@ public class consultas {
             while(rs.next()){
                 tipoMueble.add(rs.getString(1));
                 if (tabla.equals("tipomueble")) {
-                    muebleInventario.add(new mueble(rs.getString(1), rs.getFloat(2), 0));
+                    muebleInventario.add(new muebleEnsamblado(rs.getString(1), rs.getFloat(2), 0));
                 }
             }
             conn.close();
@@ -256,74 +260,10 @@ public class consultas {
         }
     }
     /**
-    * Genera un arreglo con la informacin completa de los muebles ensamblados en area 1
-    * devolviendo un arreglo con todos los datos de los muebles en forma de String para ser imprimido en el jsp que lo llame
+    * Crea un arreglo de muebles ensamblados y lo almacena dentro del arrayList "muebleInventario" si recibe not
+    * si recibe un texto distinto de not devera recivir el codigo de un mueble a buscar
+    * y luego devuelve un objeto del tipo mueble con los datos del mueble buscado
     */
-    public ArrayList<String> infomueble(String mueble){
-        ArrayList<pieza> piezasImprimir=new ArrayList<pieza>();
-        ArrayList<String> lineaTexto=new ArrayList<String>();
-        lineaTexto.clear();
-        piezasImprimir.clear();
-        codigo.clear();
-        tipoPiezas.clear();
-        piezaInventario.clear();
-        double precio=0;
-        CantidadPieza(mueble);
-        int noPieza=tipoPiezas.size();
-        int totalPiezas=0;
-        int contadorPieza=0;
-        double precioensamble=0;
-        Pieza();
-        lineaTexto.add("El mueble "+mueble);
-        lineaTexto.add("Para su ensamble necesita de "+noPieza+" piezas <br>");
-        //Busca las piezas y su informacion
-        for (int i = 0; i < noPieza; i++) {
-            lineaTexto.add(tipoPiezas.get(i).getCantidad()+" "+tipoPiezas.get(i).getNombre()+" ");
-            totalPiezas+=tipoPiezas.get(i).getCantidad();
-            int contador=-1;
-            int contador2=0;
-            int limite = tipoPiezas.get(i).getCantidad();
-            for (int j = 0; j < piezaInventario.size(); j++) {
-                if (contador2<limite) {
-                    if (piezaInventario.get(j).getNombre().equals(tipoPiezas.get(i).getNombre())) {
-                        if (precio!=piezaInventario.get(j).getPrecio()) {
-                            piezasImprimir.add(new pieza(piezaInventario.get(j).getNombre(),piezaInventario.get(j).getCodigo(), piezaInventario.get(j).getPrecio(),1));
-                            contador++;
-                            precio=piezasImprimir.get(contador).getPrecio();
-                            
-                            codigo.add(piezaInventario.get(j).getCodigo());
-                        }else if (precio==piezaInventario.get(j).getPrecio()) {
-                            piezasImprimir.get(contador).setCantidad(piezasImprimir.get(contador).getCantidad()+1);
-                            codigo.add(piezaInventario.get(j).getCodigo());
-                        }
-                        
-                        contador2++;
-                        contadorPieza++;
-                    }
-                }else{
-                    j=piezaInventario.size()+1;
-                }
-            }
-            
-        }
-        lineaTexto.add(";<br>");
-        if (contadorPieza==totalPiezas) {
-            for (int i = 0; i < piezasImprimir.size(); i++) {
-                lineaTexto.add("&#10143; "+piezasImprimir.get(i).getCantidad()+" "+piezasImprimir.get(i).getNombre()+" con valor de Q."+piezasImprimir.get(i).getPrecio()+" <br>");
-                precioensamble+=(piezasImprimir.get(i).getPrecio()*piezasImprimir.get(i).getCantidad());
-            }
-            for (int i = 0; i < muebleInventario.size(); i++) {
-                if (muebleInventario.get(i).getNombre().equals(mueble)) {
-                    muebleInventario.get(i).setPrecioEnsamble((float)precioensamble);
-                }
-            }
-        }else{
-            lineaTexto.add("&#9888; La cantidad de piezas en inventario para este mueble no es suficiente <br>");
-        }
-        return lineaTexto;
-    }
-    
-    
     public void InfoMueble(String codigo){
         Connection conn;
         PreparedStatement pst;
@@ -336,7 +276,7 @@ public class consultas {
             pst=conn.prepareStatement(sql);
             rs=pst.executeQuery();
             while(rs.next()){
-                muebleInventario.add(new mueble(rs.getString(1),rs.getString(4),rs.getString(2),rs.getFloat(7),rs.getFloat(5), rs.getDate(3)));
+                muebleInventario.add(new muebleEnsamblado(rs.getString(1),rs.getString(4),rs.getString(2),rs.getFloat(7),rs.getFloat(5), rs.getDate(3)));
             }
             if (!codigo.equals("not")) {
                 for (int i = 0; i < muebleInventario.size(); i++) {
@@ -350,7 +290,11 @@ public class consultas {
             
         }    
     }
-    
+    /**
+    * Recibe el arreglo de muebles que desea comprar el cliente 
+    * Registra cada mueble en la BD de muebles vendidos
+    * Borra de BD de muebles ensamblados
+    */
     public void RegistrarVenta(ArrayList<mueble> vendidos, String cliente, String vendedor, String fecha, int factura){
         Connection conn;
         Statement sta=null;
@@ -371,6 +315,31 @@ public class consultas {
         }catch(ClassNotFoundException | SQLException e){
         }
     }
+    /**
+    * Crea y devulve un arreglo de muebles vendidos con todas sus variables
+    */
+    
+    public ArrayList<MuebleVendido> ArregloVendido(){
+        ArrayList<MuebleVendido> vendidos = new ArrayList<MuebleVendido>();
+        Connection conn;
+        PreparedStatement pst;
+        ResultSet rs;
+        int cont=0;
+        String sql= "select * from mueble_vendido";
+        try{
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(url,uss,contra);
+            pst=conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+            while(rs.next()){
+                vendidos.add(new MuebleVendido(rs.getString(1),rs.getString(2),rs.getDate(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getString(7),rs.getInt(8)));
+            }
+            conn.close();
+        }catch(ClassNotFoundException | SQLException e){
+            
+        }
+        return vendidos;
+    }
     
     public String[] getInformacion() {
         return informacion;
@@ -385,7 +354,7 @@ public class consultas {
     public ArrayList<pieza> getTipoPiezas() {
         return tipoPiezas;
     }
-    public ArrayList<mueble> getMuebleInventario() {
+    public ArrayList<muebleEnsamblado> getMuebleInventario() {
         return muebleInventario;
     }
 

@@ -4,6 +4,7 @@
     Author     : alpha
 --%>
 
+<%@page import="Objetos.muebleEnsamblado"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="procesos.consultas"%>
 <%@page import="Objetos.mueble"%>
@@ -31,7 +32,7 @@
             consultas a1 = new consultas();
             a1.InfoMueble("not");
             //array de pieza en el inventario en la base de datos
-            ArrayList<mueble> tipoPiezas=a1.getMuebleInventario();
+            ArrayList<muebleEnsamblado> tipoPiezas=a1.getMuebleInventario();
         
             if (request.getParameter("orden")==null) {
                 request.setAttribute("orden", "a");

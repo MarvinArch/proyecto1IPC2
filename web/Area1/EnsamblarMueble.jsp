@@ -4,6 +4,8 @@
     Author     : alpha
 --%>
 
+<%@page import="procesos.CrearInfoEnsamble"%>
+<%@page import="Objetos.muebleEnsamblado"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="Objetos.mueble"%>
@@ -22,18 +24,14 @@
         <i><%@ include file = "RegistrarMueble.jsp" %></i>
         <form method="POST" accion="RegistrarMueble.jsp">
         <%
-            consultas a1 = new consultas();
-            a1.TipoPieza("tipomueble");
-            ArrayList<String> tipoMueble= a1.getTipoMueble();
-            ArrayList<mueble> muebleInventario= a1.getMuebleInventario();
-            int num=tipoMueble.size();
-            String[] funcion= new String[num];
-            for (int i = 0; i < num; i++) {
-                    funcion[i]=tipoMueble.get(i).toString();
-                }
-            for (int i = 0; i < num; i++) {
+            consultas a1= new consultas();
+            CrearInfoEnsamble info=new CrearInfoEnsamble();
+            CrearInfoEnsamble info3=new CrearInfoEnsamble();
+            ArrayList<String> tipoMueble= info3.TipoMueble("tipomueble");
+            for (int i = 0; i < tipoMueble.size(); i++) {
                     out.print("<div class='ensamble'>");
-                    ArrayList<String> lineaTexto=a1.infomueble(funcion[i]);
+                    ArrayList<String> lineaTexto=info.infoMueble(tipoMueble.get(i));
+                    ArrayList<muebleEnsamblado> muebleInventario= info.getMuebleInventario();
                     for (int j = 0; j < lineaTexto.size(); j++) {
                             out.print(lineaTexto.get(j).toString());
                             if (j==0) {
@@ -41,7 +39,7 @@
                                 }
                         }
                     out.print("El costo de ensamble del mueble es de Q. "+muebleInventario.get(i).getPrecioEnsamble()+"<br>");
-                    out.print("<div class='centro'><button type='submit' name ='eleccion' value='"+funcion[i]+"' class='modificar'>Ensamblar Mueble</button></div>");
+                    out.print("<div class='centro'><button type='submit' name ='eleccion' value='"+tipoMueble.get(i).toString()+"' class='modificar'>Ensamblar Mueble</button></div>");
                     out.print("</div>");
                     out.print("<br>");
                 }

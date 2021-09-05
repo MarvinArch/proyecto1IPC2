@@ -39,3 +39,47 @@ and open the template in the editor.
     margin-top: 15px;
     margin-bottom: 10px;
 }
+.hoja{
+    margin-left: auto;
+    margin-right: auto;
+    background: white;
+    width: 1000px;
+    height: 1000px;
+    box-shadow: 9px 0px #999; 
+}
+.CambioColor{
+    background:  #e5e7e9;
+}
+.Encabezado{
+    border-bottom: solid;
+    height: 175px;
+    padding-left: 30px;
+}
+.detalles{
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    background: yellow;
+}
+.lado{
+    width: 19%;
+    float: left;
+    border-top: solid;
+    border: solid;
+    padding-left: 10px;
+    padding-top: 20px;
+    text-align: center;
+}
+.detal{   
+    width: 56%;
+    float: left;
+    border-top: solid;
+    border-bottom: solid;
+    padding-left: 10px;
+    padding-top: 20px;
+    text-align: center;
+}
+.EncabezadoDetalles{
+    border-bottom: solid;
+    text-align: center;
+}

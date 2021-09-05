@@ -4,6 +4,8 @@
     Author     : alpha
 --%>
 
+<%@page import="procesos.CrearInfoEnsamble"%>
+<%@page import="Objetos.muebleEnsamblado"%>
 <%@page import="Objetos.mueble"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="procesos.consultas"%>
@@ -21,13 +23,14 @@
         boolean exito=false;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         consultas a2 = new consultas();
+        CrearInfoEnsamble info2 = new CrearInfoEnsamble();
         if (request.getParameter("eleccion")!=null) {
                 float costo=0;
                 a2.TipoPieza("tipomueble");
-                a2.infomueble(request.getParameter("eleccion"));
-                ArrayList<String> codigo=a2.getCodigo();
+                info2.infoMueble(request.getParameter("eleccion"));
+                ArrayList<String> codigo=info2.getCodigo();
                 //se recoge un arreglo de codigos
-                ArrayList<mueble> muebleInve=a2.getMuebleInventario();
+                ArrayList<muebleEnsamblado> muebleInve=info2.getMuebleInventario();
                 //se calcula el costo total del ensamblaje del mueble
                 for (int i = 0; i < muebleInve.size(); i++) {
                         if (muebleInve.get(i).getNombre().equals(request.getParameter("eleccion"))) {

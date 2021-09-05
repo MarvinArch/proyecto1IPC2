@@ -28,6 +28,14 @@
         <servlet-name>VentaMueble</servlet-name>
         <servlet-class>Servlet.VentaMueble</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>infoMueble</servlet-name>
+        <servlet-class>Servlet.infoMueble</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HistorialCompra</servlet-name>
+        <servlet-class>Servlet.HistorialCompra</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Paginaensanble</servlet-name>
         <url-pattern>/Paginaensanble</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>VentaMueble</servlet-name>
         <url-pattern>/VentaMueble</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>infoMueble</servlet-name>
+        <url-pattern>/infoMueble</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HistorialCompra</servlet-name>
+        <url-pattern>/HistorialCompra</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

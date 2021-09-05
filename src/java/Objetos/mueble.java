@@ -12,30 +12,14 @@ import java.util.Date;
  * @author alpha
  */
 public class mueble {
-    private String identificador;
-    private String nombre;
-    private String ensambladro;
-    private float precioVenta;
-    private float precioEnsamble;
-    private Date ensamble;
-    private int existencia;
+    protected String identificador;
+    protected String nombre;
+    protected float precioVenta;
+    protected float precioEnsamble;
+    protected Date ensamble;
+    protected int existencia;
 
-    public mueble(String identificador, String nombre, String ensambladro, float precioVenta, float precioEnsamble, Date ensamble) {
-        this.identificador = identificador;
-        this.nombre = nombre;
-        this.ensambladro = ensambladro;
-        this.precioVenta = precioVenta;
-        this.precioEnsamble = precioEnsamble;
-        this.ensamble = ensamble;
-    }
-
-    public mueble() {
-    }
-    public mueble(String nombre, float precioVenta, float precioEnsamble) {
-        this.nombre = nombre;
-        this.precioVenta = precioVenta;
-        this.precioEnsamble = precioEnsamble;
-    }
+    
 
     public String getNombre() {
         return nombre;
@@ -67,14 +51,6 @@ public class mueble {
 
     public void setIdentificador(String identificador) {
         this.identificador = identificador;
-    }
-
-    public String getEnsambladro() {
-        return ensambladro;
-    }
-
-    public void setEnsambladro(String ensambladro) {
-        this.ensambladro = ensambladro;
     }
 
     public Date getEnsamble() {

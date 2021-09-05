@@ -34,9 +34,9 @@
             <a href="salaventas.jsp" class="redireccion" >Sala Venta</a>
             <a href="" class="redireccion" >Devoluciones</a>
             <a href="" class="redireccion">Devoluciones cliente</a>
-            <a href="" class="redireccion">Compras cliente</a>
+            <a href="ConsultaCliente.jsp" class="redireccion">Compras cliente</a>
             <a href="MueblesDisponibles.jsp" class="redireccion">Inventario de Muebles</a>
-            <a href="" class="redireccion">Detalles factura</a>
+            <a href="DetalleFactura.jsp" class="redireccion">Detalles factura</a>
             <a href="" class="redireccion">Ventas del dia</a>   
         </div>
                 
