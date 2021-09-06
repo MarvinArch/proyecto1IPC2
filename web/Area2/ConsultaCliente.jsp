@@ -4,6 +4,7 @@
     Author     : alpha
 --%>
 
+<%@page import="Objetos.Cliente"%>
 <%@page import="procesos.FormatoFecha"%>
 <%@page import="Objetos.MuebleVendido"%>
 <%@page import="java.util.ArrayList"%>
@@ -18,6 +19,7 @@
     <%
         HttpSession sesion2 = request.getSession(true);
         ArrayList<MuebleVendido> vendidos = sesion2.getAttribute("history") == null ? null :  (ArrayList)sesion2.getAttribute("history");
+        ArrayList<Cliente> usuario2 = sesion2.getAttribute("clientebusca") == null ? null :  (ArrayList)sesion2.getAttribute("clientebusca");
     %>
     <body>
         <i><%@ include file = "Area2.jsp" %></i>
@@ -40,7 +42,20 @@
                 }
             %>
         </div>
-        
+        <div class="centro">
+            <%
+                try {
+                    if (request.getParameter("a").equals("a")){
+                    
+            %>
+            <h3>Nit: <%=usuario2.get(0).getNit()%></h3>
+            <h3>Nombre: <%=usuario2.get(0).getNombre()%></h3>
+            <%
+                    }
+                } catch (Exception e) {
+                    }
+            %>
+        </div>
         <div>
             <table>
                 <tr>
@@ -53,7 +68,7 @@
                 <%
                     try {
                     
-                        if (sesion.getAttribute("history")!=null) {
+                        if (request.getParameter("a").equals("a")) {
                             String mueble="";
                             for (int i = 0; i < vendidos.size(); i++) {
                                 String fecha=FormatoFecha.CambiarFormatoFecha(vendidos.get(i).getEnsamble().toString());

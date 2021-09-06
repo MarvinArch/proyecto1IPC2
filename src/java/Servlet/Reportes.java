@@ -11,23 +11,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import procesos.ComprobarUsuario;
-import procesos.FormatoFecha;
 import procesos.consultas;
 
 /**
  *
  * @author alpha
  */
-public class HistorialCompra extends HttpServlet {
+@WebServlet(name = "Reportes", urlPatterns = {"/Reportes"})
+public class Reportes extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,20 +36,18 @@ public class HistorialCompra extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    String respuesta;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-           
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HistorialCompra</title>");            
+            out.println("<title>Servlet Reportes</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HistorialCompra at " + request.getContextPath() + "</h1>"+request.getParameter("inicial"));
+            out.println("<h1>Servlet Reportes at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,7 +65,7 @@ public class HistorialCompra extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**
@@ -83,59 +79,41 @@ public class HistorialCompra extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        consultas cons = new consultas();
-        ComprobarUsuario cp= new ComprobarUsuario();
-        ArrayList<MuebleVendido> total = cons.ArregloVendido();
         HttpSession sesion = request.getSession(true);
-            if (request.getParameter("buscar")!=null) {
-            try {
-                ArrayList<MuebleVendido> vendidos = sesion.getAttribute("history") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("history");
-                ArrayList<Cliente> cliente = sesion.getAttribute("clientebusca") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("clientebusca");
-                cliente.clear();
-                vendidos.clear();
-                String usuario=request.getParameter("usuario");
-                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-                Date feInicial= formato.parse(request.getParameter("inicial").toString());
-                Date feFinal= formato.parse(request.getParameter("final").toString());
-                for (int i = 0; i < total.size(); i++) {
-                  if (total.get(i).getCliente().equals(usuario) && total.get(i).getEnsamble().after(feInicial) && (total.get(i).getEnsamble().before(feFinal)|total.get(i).getEnsamble().equals(feFinal))) {
-                        vendidos.add(total.get(i));
-                    }
-                }
-                String[] info=cp.BuscarCliente(usuario);
-                cliente.add(new Cliente(info[0],info[1],info[2]));
-                sesion.setAttribute("clientebusca", cliente);
-                sesion.setAttribute("history", vendidos);
-                if (vendidos.size()>0) {
-                    response.sendRedirect("Area2/ConsultaCliente.jsp?a=a");
-                }else{
-                    response.sendRedirect("Area2/ConsultaCliente.jsp?not=1");
-                }
-                
-            
-            } catch (Exception e) {
-                response.sendRedirect("Area2/ConsultaCliente.jsp?er=20");
-            }   
-        }
-        if (request.getParameter("BuscarFactura")!=null) {
+        if (request.getParameter("reportetiempo")!=null) {
+            consultas cons = new consultas();
             try {
                 ArrayList<MuebleVendido> vendidos = sesion.getAttribute("detalle") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("detalle");
-                ArrayList<Cliente> cliente = sesion.getAttribute("cliente") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("cliente");
-                cliente.clear();
+                ArrayList<String> fechas = sesion.getAttribute("fechas") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("fechas");
                 vendidos.clear();
-                String factura=request.getParameter("factura");
+                fechas.clear();
+                ArrayList<MuebleVendido> total = cons.ArregloVendido();
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                Date fechainicial= formato.parse(request.getParameter("inicio"));
+                Date fechafinal= formato.parse(request.getParameter("final"));
                 for (int i = 0; i < total.size(); i++) {
-                    if (total.get(i).getFactura()==Integer.parseInt(factura)) {
+                    if ((total.get(i).getEnsamble().compareTo(fechainicial)>=0) && (total.get(i).getEnsamble().compareTo(fechafinal)<=0)) {
                         vendidos.add(total.get(i));
                     }
                 }
-                String[] info=cp.BuscarCliente(vendidos.get(0).getCliente());
-                cliente.add(new Cliente(info[0],info[1],info[2]));
-                sesion.setAttribute("cliente", cliente);
+                fechas.add(request.getParameter("inicio"));
+                fechas.add(request.getParameter("final"));
+                sesion.setAttribute("fechas", fechas);
                 sesion.setAttribute("detalle", vendidos);
-                response.sendRedirect("Area2/DetalleFactura.jsp?a=a");
+                if (request.getParameter("c")!=null) {
+                    response.sendRedirect("Area3/ReporteGanacias.jsp?a=a");
+                }else{
+                    response.sendRedirect("Area3/ReportesVentasTiempo.jsp?a=a");
+                }
+                
+                
             } catch (Exception e) {
-                response.sendRedirect("Area2/DetalleFactura.jsp?a=b");
+                if (request.getParameter("c")!=null) {
+                    response.sendRedirect("Area3/ReporteGanacias.jsp?a=b");
+                }else{
+                    response.sendRedirect("Area3/ReportesVentasTiempo.jsp?a=b");
+                }
+                
             }
         }
     }

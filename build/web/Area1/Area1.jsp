@@ -16,7 +16,6 @@
     </head>
     <body>
         <i><%@ include file = "AreaFabrica.jsp" %>
-        <h1>Hello World!</h1>
         
     </body>
 </html>

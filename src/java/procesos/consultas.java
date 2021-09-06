@@ -37,8 +37,8 @@ public class consultas {
     public consultas() {
         this.driver = "com.mysql.jdbc.Driver";
         this.url = "jdbc:mysql://localhost:3306/proyecto1";
-        this.uss = "alpha23";
-        this.contra = "f3fxbv12";
+        this.uss = "alpha24";
+        this.contra = "1Z9y5cc1@";
     }
     public ArrayList<String> getCodigo() {
         return codigo;
@@ -92,11 +92,30 @@ public class consultas {
     *Crea un pieza nueva en la base de datos 
     * parte de la funcion incertar piezas
     */
-    public void AgregarPieza(String nombre, int minimo, String mueble){
+    public void AgregarPieza(String nombre, int minimo, String mueble, int necesario){
         Connection conn;
         Statement sta=null;
         ResultSet rs;
-        String sql= "INSERT INTO pieza VALUES('"+nombre+"', "+minimo+", '"+mueble+"')";
+        String sql= "INSERT INTO pieza VALUES('"+nombre+"', "+minimo+", '"+mueble+"', "+necesario+")";
+               
+        try{
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(url,uss,contra);
+            sta=conn.createStatement();
+            sta.executeUpdate(sql);
+            conn.close();
+        }catch(ClassNotFoundException | SQLException e){
+        }        
+    }
+    /**
+    *Crea un mueble nueva en la base de datos 
+    * parte de la funcion incertar piezas
+    */
+    public void AgregarMueble(String nombre, float Precio){
+        Connection conn;
+        Statement sta=null;
+        ResultSet rs;
+        String sql= "INSERT INTO tipomueble VALUES('"+nombre+"', "+Precio+")";
                
         try{
             Class.forName(this.driver);

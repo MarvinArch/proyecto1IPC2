@@ -26,7 +26,7 @@
             %>
             <br>
             <h1 class="fondoTraslucido">Mi Muebleria</h1><p></p>
-            <h3 class="fondoTraslucido">Area de Ensamblaje</h3>
+            <h3 class="fondoTraslucido">Area de Punto de Venta</h3>
             
         </div>
         
@@ -37,7 +37,7 @@
             <a href="ConsultaCliente.jsp" class="redireccion">Compras cliente</a>
             <a href="MueblesDisponibles.jsp" class="redireccion">Inventario de Muebles</a>
             <a href="DetalleFactura.jsp" class="redireccion">Detalles factura</a>
-            <a href="" class="redireccion">Ventas del dia</a>   
+            <a href="VentasDia.jsp" class="redireccion">Ventas del dia</a>   
         </div>
                 
     </body>

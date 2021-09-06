@@ -32,7 +32,7 @@
         <% 
             try {
             float Total=0;
-            if (vendidos.size()>0) {
+            if (request.getParameter("a").toString().equals("a")) {
    
         %>   
         <div class="hoja">
@@ -80,13 +80,20 @@
                 </div>
             </div>
         </div>
+        <div>
         <%    
-                }
-   
-                } catch (Exception e) {
+                }else if (request.getParameter("a").toString().equals("b")) {
+                   
+        %>
+            <h2 class="centro">&#9888; El numero de factura ingresado es invalido</h2>
+        <%
+            }    
+            } catch (Exception e) {
                 }
                 
                 
         %>
+        
+        </div>
     </body>
 </html>

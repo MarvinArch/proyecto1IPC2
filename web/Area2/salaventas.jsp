@@ -29,7 +29,14 @@
             String deshabilitar="disabled='true'";
             String deshabilitar2="";
             String total="0";
-            
+            try {
+                    if (request.getParameter("a").equals("a")) {
+                        UsuarioEncontrado.clear();
+                        muebleCarrito.clear();
+                        session.setAttribute("total", "0");
+                    }
+                } catch (Exception e) {
+                }
             try {
                 for (int i = 0; i < UsuarioEncontrado.size(); i++) {
                 nit= UsuarioEncontrado.get(i).getNit();
@@ -56,7 +63,17 @@
             }
         %>
         <i><%@ include file = "Area2.jsp" %></i>
-        <h1>sala de ventas</h1>
+        <h1 class="centro">Sala de Ventas</h1>
+        <%
+            try {
+                if (request.getParameter("a").equals("a")) {
+        %>
+        <h2 class="centro">Compra realizada con exito</h2>
+        <%
+                }
+            } catch (Exception e) {
+            }
+        %>
         <div class="atras">
             <div class="izquierdabody">
                 <form method="POST" action="../ComprobarExistencia">

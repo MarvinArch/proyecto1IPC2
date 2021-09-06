@@ -36,6 +36,14 @@
         <servlet-name>HistorialCompra</servlet-name>
         <servlet-class>Servlet.HistorialCompra</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReporteUsuario</servlet-name>
+        <servlet-class>Servlet.ReporteUsuario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GestionUsuarios</servlet-name>
+        <servlet-class>Servlet.GestionUsuarios</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Paginaensanble</servlet-name>
         <url-pattern>/Paginaensanble</url-pattern>
@@ -71,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>HistorialCompra</servlet-name>
         <url-pattern>/HistorialCompra</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReporteUsuario</servlet-name>
+        <url-pattern>/ReporteUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GestionUsuarios</servlet-name>
+        <url-pattern>/GestionUsuarios</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

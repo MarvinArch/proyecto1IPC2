@@ -5,12 +5,14 @@
  */
 package procesos;
 
+import Objetos.Usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -25,8 +27,8 @@ public class ComprobarUsuario {
     public ComprobarUsuario() {
         this.driver = "com.mysql.jdbc.Driver";
         this.url = "jdbc:mysql://localhost:3306/proyecto1";
-        this.uss = "alpha23";
-        this.contra = "f3fxbv12";
+        this.uss = "alpha24";
+        this.contra = "1Z9y5cc1@";
     }
     
     public int BuscarUsuario(String usuario, String contras){
@@ -109,6 +111,21 @@ public class ComprobarUsuario {
         }catch(ClassNotFoundException | SQLException e){
         }        
     }
+    public void AgregarUsuario(String nombre, String contraseña, int nivel){
+        Connection conn;
+        Statement sta=null;
+        ResultSet rs;
+        String sql= "INSERT INTO usuario VALUES("+nivel+", '"+nombre+"', '"+contraseña+"')";
+        try{
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(url,uss,contra);
+            sta=conn.createStatement();
+            sta.executeUpdate(sql);
+            conn.close();
+        }catch(ClassNotFoundException | SQLException e){
+        }        
+    }
+    
     public void NoFactura(String vendedor, String precio, String cliente){
         int factura=0;
         Connection conn;
@@ -147,5 +164,27 @@ public class ComprobarUsuario {
             
         }
         return cont;    
+    }
+    public ArrayList<Usuario> Usuarios() {
+        ArrayList<Usuario> lista = new ArrayList<Usuario>();
+        Connection conn;
+        PreparedStatement pst;
+        ResultSet rs;
+        int cont=0;
+        int area=0;
+        String sql= "select * from usuario";       
+        try{
+            Class.forName(this.driver);
+            conn = DriverManager.getConnection(url,uss,contra);
+            pst=conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+            while(rs.next()){
+                lista.add(new Usuario(rs.getString(2), rs.getString(3), rs.getInt(1)));
+            }
+            conn.close();
+        }catch(ClassNotFoundException | SQLException e){
+            
+        }
+        return lista;
     }
 }

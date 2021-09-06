@@ -11,13 +11,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import procesos.ComprobarUsuario;
 import procesos.consultas;
 
 /**
  *
  * @author alpha
  */
-public class Agregar extends HttpServlet {
+public class GestionUsuarios extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,46 +32,18 @@ public class Agregar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String boton = request.getParameter("boton");
-        consultas a1 = new consultas();
-        if (request.getParameter("CrearPieza")!=null) {
-            String nombre = request.getParameter("Npieza");
-            int minimo= Integer.parseInt(request.getParameter("cantidadC"));
-            int necesario = Integer.parseInt(request.getParameter("cantidadN"));
-            String mueble =request.getParameter("tipoM");
-            try {
-                if (nombre!=null) {
-                    a1.AgregarPieza(nombre, minimo, mueble, necesario);
-                    response.sendRedirect("Area3/CreacionMuebles.jsp?b=a");
-                }   
-            } catch (Exception e) {
-                response.sendRedirect("Area3/CreacionMuebles.jsp?a=b");
-            }
-
-        }else if (request.getParameter("InsertarPiezas")!=null) {
-            String precio = request.getParameter("precio");
-            String tipo = request.getParameter("tipo");
-            int cantidad=Integer.parseInt(request.getParameter("cantidad"));
-            if (precio!=null) {
-                try{
-                    float prec= Float.parseFloat(precio);
-                    a1.AgregarInventarioPieza(tipo, prec, cantidad);
-                    response.sendRedirect("Area1/CrearPiezas.jsp");
-                }catch(Exception e){
-                    response.sendRedirect("Area1/CrearPiezas?a=b.jsp");
-                }
-            }
-        }else if (request.getParameter("NuevoMuebles")!=null) {
-            try {
-                String nombre=request.getParameter("nombreMueble");
-                float precio=Float.parseFloat(request.getParameter("PrecioVenta"));
-                a1.AgregarMueble(nombre, precio);
-                response.sendRedirect("Area3/CreacionMuebles.jsp?a=a");
-            } catch (Exception e) {
-                response.sendRedirect("Area3/CreacionMuebles.jsp?a=b");
-            }
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet GestionUsuarios</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet GestionUsuarios at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -99,7 +72,29 @@ public class Agregar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        ComprobarUsuario usr= new ComprobarUsuario();
+        consultas cons = new consultas();
+        if (request.getParameter("crearUsuario")!=null) {
+            try {
+                String nombre=request.getParameter("newuser");
+                String contraseña=request.getParameter("password");
+                int nivel = Integer.parseInt(request.getParameter("tipoM"));
+                usr.AgregarUsuario(nombre, contraseña, nivel);
+                response.sendRedirect("Area3/CrearModificarUsuarios.jsp?a=a");
+            } catch (Exception e) {
+                response.sendRedirect("Area3/CrearModificarUsuarios.jsp?a=a");
+            }
+        }
+        if (request.getParameter("Eliminarusr")!=null) {
+            try {
+                String[] usuarios = request.getParameterValues("Eliminados");
+                for (int i = 0; i < usuarios.length; i++) {
+                    cons.EliminarPieza(usuarios[i], "usuario", "nombre");
+                }
+                response.sendRedirect("Area3/CrearModificarUsuarios.jsp?a=a");
+            } catch (Exception e) {
+            }
+        }
     }
 
     /**
