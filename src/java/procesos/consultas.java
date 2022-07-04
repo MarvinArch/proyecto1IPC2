@@ -9,8 +9,8 @@ import Objetos.MuebleVendido;
 import Objetos.mueble;
 import Objetos.muebleEnsamblado;
 import Objetos.pieza;
+import config.ConnectionsJDBC;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,10 +22,7 @@ import java.util.ArrayList;
  * @author alpha
  */
 public class consultas {
-    private String driver;
-    private String url;
-    private String uss;
-    private String contra;
+    private Connection conn;
     private final ArrayList<pieza> piezaInventario=new ArrayList<pieza>();
     private final ArrayList<pieza> tipoPiezas=new ArrayList<pieza>();
     private final ArrayList<String> tipoMueble=new ArrayList<String>();
@@ -35,10 +32,7 @@ public class consultas {
     private mueble mueble;
     
     public consultas() {
-        this.driver = "com.mysql.jdbc.Driver";
-        this.url = "jdbc:mysql://localhost:3306/proyecto1";
-        this.uss = "alpha24";
-        this.contra = "1Z9y5cc1@";
+        
     }
     public ArrayList<String> getCodigo() {
         return codigo;
@@ -54,22 +48,23 @@ public class consultas {
         int cont=0;
         String sql= "select * from mprima";
         try{
-            Class.forName(this.driver);
-            conn = DriverManager.getConnection(url,uss,contra);
+//            Class.forName(this.driver);
+//            conn = DriverManager.getConnection(url,uss,contra);
+            conn=ConnectionsJDBC.getConnection();
             pst=conn.prepareStatement(sql);
             rs=pst.executeQuery();
             while(rs.next()){
                 piezaInventario.add(new pieza(rs.getString(1),rs.getString(2),rs.getDouble(3)));
             }
             conn.close();
-        }catch(ClassNotFoundException | SQLException e){
+        }catch(SQLException e){
             
         }
         
     }
     
     /**
-    *Elimina una fila de la base de datos recibe como paramtro el nombre de la tabla en donde debe buscar 
+    *Elimina una fila de la base de datos recibe como parametro el nombre de la tabla en donde debe buscar 
     * Codigo de objeto a eliminar y columna
     */
     public void EliminarPieza(String codigo, String tabla, String columna){
@@ -79,12 +74,13 @@ public class consultas {
         String sql= "delete from "+tabla+" where "+columna+"='"+codigo+"'";
                
         try{
-            Class.forName(this.driver);
-            conn = DriverManager.getConnection(url,uss,contra);
+//            Class.forName(this.driver);
+//            conn = DriverManager.getConnection(url,uss,contra);
+            conn=ConnectionsJDBC.getConnection();
             sta=conn.createStatement();
             sta.executeUpdate(sql);
             conn.close();
-        }catch(ClassNotFoundException | SQLException e){
+        }catch(SQLException e){
         }        
     }
     
@@ -99,12 +95,11 @@ public class consultas {
         String sql= "INSERT INTO pieza VALUES('"+nombre+"', "+minimo+", '"+mueble+"', "+necesario+")";
                
         try{
-            Class.forName(this.driver);
-            conn = DriverManager.getConnection(url,uss,contra);
+            conn = ConnectionsJDBC.getConnection();
             sta=conn.createStatement();
             sta.executeUpdate(sql);
             conn.close();
-        }catch(ClassNotFoundException | SQLException e){
+        }catch(SQLException e){
         }        
     }
     /**
@@ -118,12 +113,11 @@ public class consultas {
         String sql= "INSERT INTO tipomueble VALUES('"+nombre+"', "+Precio+")";
                
         try{
-            Class.forName(this.driver);
-            conn = DriverManager.getConnection(url,uss,contra);
+            conn = ConnectionsJDBC.getConnection();
             sta=conn.createStatement();
             sta.executeUpdate(sql);
             conn.close();
-        }catch(ClassNotFoundException | SQLException e){
+        }catch(SQLException e){
         }        
     }
     
@@ -138,13 +132,12 @@ public class consultas {
         String sql= "INSERT INTO mueble_ensamblado VALUES(0,'"+usuario+"', '"+fecha+"', '"+mueble+"', "+costo+")";
                
         try{
-            Class.forName(this.driver);
-            conn = DriverManager.getConnection(url,uss,contra);
+            conn = ConnectionsJDBC.getConnection();
             sta=conn.createStatement();
             sta.executeUpdate(sql);
             conn.close();
             exito=true;
-        }catch(ClassNotFoundException | SQLException e){
+        }catch(SQLException e){
             exito=false;
         }
         return exito;
@@ -156,16 +149,13 @@ public class consultas {
     * En cambio si el parametro es tipomueble creara el arreglo de nombres de los muebles existentes
     */
     public void TipoPieza(String tabla){
-        Connection conn;
         PreparedStatement pst;
         ResultSet rs;
         int cont=0;
         String sql= "select * from "+tabla;
         tipoMueble.clear();
         try{
-            Class.forName(this.driver);
-            conn = DriverManager.getConnection(url,uss,contra);
-            pst=conn.prepareStatement(sql);
+            pst=consul(sql);
             rs=pst.executeQuery();
             while(rs.next()){
                 tipoMueble.add(rs.getString(1));
@@ -174,7 +164,7 @@ public class consultas {
                 }
             }
             conn.close();
-        }catch(ClassNotFoundException | SQLException e){
+        }catch(SQLException e){
             
         }        
     }
@@ -184,22 +174,19 @@ public class consultas {
     * genera un arreglo de cantidad de piezas necesaria para ensamblar mueble
     */
     public void CantidadPieza(String mueble){
-        Connection conn;
-        PreparedStatement pst;
+       PreparedStatement pst;
         ResultSet rs;
         int cont=0;
         String sql= "select * from pieza where mueble='"+mueble+"'";
         tipoMueble.clear();
         try{
-            Class.forName(this.driver);
-            conn = DriverManager.getConnection(url,uss,contra);
-            pst=conn.prepareStatement(sql);
+            pst=consul(sql);
             rs=pst.executeQuery();
             while(rs.next()){
                 tipoPiezas.add(new pieza(rs.getString(1),rs.getInt(4)));
             }
             conn.close();
-        }catch(ClassNotFoundException | SQLException e){
+        }catch(SQLException e){
             
         }
         
@@ -215,14 +202,13 @@ public class consultas {
         String sql= "INSERT INTO mprima VALUES('"+nombre+"', 0, '"+precio+"')";
                
         try{
-            Class.forName(this.driver);
-            conn = DriverManager.getConnection(url,uss,contra);
+            conn = ConnectionsJDBC.getConnection();
             sta=conn.createStatement();
             for (int i = 0; i < cantidad; i++) {
                 sta.executeUpdate(sql);
             }
             conn.close();
-        }catch(ClassNotFoundException | SQLException e){
+        }catch(SQLException e){
         }        
     }
     
@@ -236,13 +222,12 @@ public class consultas {
         String sql= "UPDATE mprima SET tipo='"+nombre+"' WHERE codigo='"+codigo+"'";
         String sql2= "UPDATE mprima SET precio='"+precio+"' WHERE codigo='"+codigo+"'";
         try{
-            Class.forName(this.driver);
-            conn = DriverManager.getConnection(url,uss,contra);
+            conn = ConnectionsJDBC.getConnection();
             sta=conn.createStatement();
             sta.executeUpdate(sql);
             sta.executeUpdate(sql2);
             conn.close();
-        }catch(ClassNotFoundException | SQLException e){
+        }catch(SQLException e){
             System.out.println("esa madre fallo");
         }        
     }
@@ -251,7 +236,6 @@ public class consultas {
     * Crea un arreglo de los tipos de piezas y las cantidades existentes en la base de datos
     */
     public void InforPieza(){
-        Connection conn;
         PreparedStatement pst;
         ResultSet rs;
         int cont=0;
@@ -260,9 +244,7 @@ public class consultas {
         try{
             String tipo= "xx";
             int posicion=-1;
-            Class.forName(this.driver);
-            conn = DriverManager.getConnection(url,uss,contra);
-            pst=conn.prepareStatement(sql);
+            pst= consul(sql);
             rs=pst.executeQuery();
             while(rs.next()){
                 if (!rs.getString(1).equals(tipo)) {
@@ -274,7 +256,7 @@ public class consultas {
                 }
             }
             conn.close();
-        }catch(ClassNotFoundException | SQLException e){
+        }catch(SQLException e){
             
         }
     }
@@ -284,15 +266,12 @@ public class consultas {
     * y luego devuelve un objeto del tipo mueble con los datos del mueble buscado
     */
     public void InfoMueble(String codigo){
-        Connection conn;
         PreparedStatement pst;
         ResultSet rs;
         int cont=0;
         String sql= "select * from mueble_ensamblado, tipomueble where nombre_mueble=nombremueble;";
         try{
-            Class.forName(this.driver);
-            conn = DriverManager.getConnection(url,uss,contra);
-            pst=conn.prepareStatement(sql);
+           pst=consul(sql);
             rs=pst.executeQuery();
             while(rs.next()){
                 muebleInventario.add(new muebleEnsamblado(rs.getString(1),rs.getString(4),rs.getString(2),rs.getFloat(7),rs.getFloat(5), rs.getDate(3)));
@@ -305,7 +284,7 @@ public class consultas {
                 }
             }
             conn.close();
-        }catch(ClassNotFoundException | SQLException e){
+        }catch(SQLException e){
             
         }    
     }
@@ -319,8 +298,7 @@ public class consultas {
         Statement sta=null;
         ResultSet rs;
         try{
-            Class.forName(this.driver);
-            conn = DriverManager.getConnection(url,uss,contra);
+            conn=ConnectionsJDBC.getConnection();
             sta=conn.createStatement();
             for (int i = 0; i < vendidos.size(); i++) {
                 int identificador=Integer.parseInt(vendidos.get(i).getIdentificador());
@@ -331,7 +309,7 @@ public class consultas {
             }
             
             conn.close();
-        }catch(ClassNotFoundException | SQLException e){
+        }catch(SQLException e){
         }
     }
     /**
@@ -340,24 +318,27 @@ public class consultas {
     
     public ArrayList<MuebleVendido> ArregloVendido(){
         ArrayList<MuebleVendido> vendidos = new ArrayList<MuebleVendido>();
-        Connection conn;
         PreparedStatement pst;
         ResultSet rs;
         int cont=0;
         String sql= "select * from mueble_vendido";
         try{
-            Class.forName(this.driver);
-            conn = DriverManager.getConnection(url,uss,contra);
-            pst=conn.prepareStatement(sql);
+            pst=consul(sql);
             rs=pst.executeQuery();
             while(rs.next()){
                 vendidos.add(new MuebleVendido(rs.getString(1),rs.getString(2),rs.getDate(3),rs.getString(4),rs.getFloat(5),rs.getFloat(6),rs.getString(7),rs.getInt(8)));
             }
             conn.close();
-        }catch(ClassNotFoundException | SQLException e){
+        }catch(SQLException e){
             
         }
         return vendidos;
+    }
+    
+    private PreparedStatement consul(String sql) throws SQLException{
+        conn = ConnectionsJDBC.getConnection();
+        PreparedStatement pst;
+        return pst=conn.prepareStatement(sql);
     }
     
     public String[] getInformacion() {

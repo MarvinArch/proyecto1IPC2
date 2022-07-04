@@ -80,8 +80,8 @@ public class ReporteMuebles extends HttpServlet {
             throws ServletException, IOException {
         consultas cons = new consultas();
         HttpSession sesion = request.getSession(true);
-        ArrayList<MuebleVendido> vendidos = sesion.getAttribute("detalle") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("detalle");
-        ArrayList<String> fechas = sesion.getAttribute("fechas") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("fechas");
+        ArrayList<MuebleVendido> vendidos = sesion.getAttribute("detalle") == null ? new ArrayList<MuebleVendido>() :  (ArrayList)sesion.getAttribute("detalle");
+        ArrayList<String> fechas = sesion.getAttribute("fechas") == null ? new ArrayList<String>() :  (ArrayList)sesion.getAttribute("fechas");
         vendidos.clear();
         fechas.clear();
         try {        

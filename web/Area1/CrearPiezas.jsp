@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <LINK rel=StyleSheet href="../Diseño/Fabrica.css">
+        <LINK rel=StyleSheet href="../Desing/Fabrica.css">
         <title>Area de ensamblaje</title>
     </head>
     <body>

@@ -3,14 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/alpha/NetBeansProjects/Proyecto1/web/Area2/Area2.jsp</file>
-            <file>file:/home/alpha/NetBeansProjects/Proyecto1/web/Area2/DetalleFactura.jsp</file>
-            <file>file:/home/alpha/NetBeansProjects/Proyecto1/src/java/procesos/ComprobarUsuario.java</file>
-            <file>file:/home/alpha/NetBeansProjects/Proyecto1/src/java/Objetos/Cliente.java</file>
-            <file>file:/home/alpha/NetBeansProjects/Proyecto1/web/Area2/ConsultaCliente.jsp</file>
-            <file>file:/home/alpha/NetBeansProjects/Proyecto1/src/java/Servlet/HistorialCompra.java</file>
-            <file>file:/home/alpha/NetBeansProjects/Proyecto1/web/Diseño/Tienda.css</file>
-            <file>file:/home/alpha/NetBeansProjects/Proyecto1/web/Diseño/Fabrica.css</file>
+            <file>file:/home/david/NetBeansProjects/proyecto1IPC2/src/java/procesos/ComprobarUsuario.java</file>
+            <file>file:/home/david/NetBeansProjects/proyecto1IPC2/web/index.html</file>
+            <file>file:/home/david/NetBeansProjects/proyecto1IPC2/src/java/procesos/consultas.java</file>
+            <file>file:/home/david/NetBeansProjects/proyecto1IPC2/src/java/config/ConnectionsJDBC.java</file>
+            <file>file:/home/david/NetBeansProjects/proyecto1IPC2/web/Area3/Area3.jsp</file>
         </group>
     </open-files>
 </project-private>

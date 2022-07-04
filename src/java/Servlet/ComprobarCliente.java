@@ -42,7 +42,7 @@ public class ComprobarCliente extends HttpServlet {
             String[] usuario = usr.BuscarCliente(nit);
             if (usuario.length>1) {
                 HttpSession sesion = request.getSession(true);
-                ArrayList<Cliente> UsuarioEncontrado = sesion.getAttribute("usuario") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("usuario");
+                ArrayList<Cliente> UsuarioEncontrado = sesion.getAttribute("usuario") == null ? new ArrayList<Cliente>() :  (ArrayList)sesion.getAttribute("usuario");
                 sesion.setAttribute("usuario", UsuarioEncontrado);
                 UsuarioEncontrado.add(new Cliente(nit,usuario[1],usuario[2]));
                 response.sendRedirect("Area2/salaventas.jsp");

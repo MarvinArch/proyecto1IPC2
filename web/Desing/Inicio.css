@@ -8,7 +8,7 @@ and open the template in the editor.
     Author     : alpha
 */
 body{
-    background-image: url("../Diseño/fondo.png");
+    background-image: url("fondo.png");
     background-size: cover;
     
 }

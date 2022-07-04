@@ -18,7 +18,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <LINK rel=StyleSheet href="../Diseño/Tienda.css">
+        <LINK rel=StyleSheet href="../Desing/Tienda.css">
         <title>Sala de ventas</title>
     </head>
     <body>

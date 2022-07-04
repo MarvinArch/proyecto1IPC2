@@ -81,8 +81,8 @@ public class ReporteUsuario extends HttpServlet {
         consultas cons = new consultas();
         ComprobarUsuario comp = new ComprobarUsuario();
         HttpSession sesion = request.getSession(true);
-        ArrayList<MuebleVendido> vendidos = sesion.getAttribute("detalle") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("detalle");
-        ArrayList<String> fechas = sesion.getAttribute("fechas") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("fechas");
+        ArrayList<MuebleVendido> vendidos = sesion.getAttribute("detalle") == null ? new ArrayList<MuebleVendido>() :  (ArrayList)sesion.getAttribute("detalle");
+        ArrayList<String> fechas = sesion.getAttribute("fechas") == null ? new ArrayList<String>() :  (ArrayList)sesion.getAttribute("fechas");
         ArrayList<Usuario> lista = comp.Usuarios();
         vendidos.clear();
         fechas.clear();

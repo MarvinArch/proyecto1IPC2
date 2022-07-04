@@ -87,12 +87,12 @@ public class HistorialCompra extends HttpServlet {
         ComprobarUsuario cp= new ComprobarUsuario();
         ArrayList<MuebleVendido> total = cons.ArregloVendido();
         HttpSession sesion = request.getSession(true);
+        ArrayList<MuebleVendido> vendidos = sesion.getAttribute("history") == null ? new ArrayList<MuebleVendido>() :  (ArrayList)sesion.getAttribute("history");
+        ArrayList<Cliente> cliente = sesion.getAttribute("clientebusca") == null ? new ArrayList<Cliente>() :  (ArrayList)sesion.getAttribute("clientebusca");
+        cliente.clear();
+                vendidos.clear();        
             if (request.getParameter("buscar")!=null) {
             try {
-                ArrayList<MuebleVendido> vendidos = sesion.getAttribute("history") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("history");
-                ArrayList<Cliente> cliente = sesion.getAttribute("clientebusca") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("clientebusca");
-                cliente.clear();
-                vendidos.clear();
                 String usuario=request.getParameter("usuario");
                 SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
                 Date feInicial= formato.parse(request.getParameter("inicial").toString());
@@ -119,10 +119,6 @@ public class HistorialCompra extends HttpServlet {
         }
         if (request.getParameter("BuscarFactura")!=null) {
             try {
-                ArrayList<MuebleVendido> vendidos = sesion.getAttribute("detalle") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("detalle");
-                ArrayList<Cliente> cliente = sesion.getAttribute("cliente") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("cliente");
-                cliente.clear();
-                vendidos.clear();
                 String factura=request.getParameter("factura");
                 for (int i = 0; i < total.size(); i++) {
                     if (total.get(i).getFactura()==Integer.parseInt(factura)) {

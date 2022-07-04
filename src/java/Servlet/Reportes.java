@@ -83,8 +83,8 @@ public class Reportes extends HttpServlet {
         if (request.getParameter("reportetiempo")!=null) {
             consultas cons = new consultas();
             try {
-                ArrayList<MuebleVendido> vendidos = sesion.getAttribute("detalle") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("detalle");
-                ArrayList<String> fechas = sesion.getAttribute("fechas") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("fechas");
+                ArrayList<MuebleVendido> vendidos = sesion.getAttribute("detalle") == null ? new ArrayList<MuebleVendido>() :  (ArrayList)sesion.getAttribute("detalle");
+                ArrayList<String> fechas = sesion.getAttribute("fechas") == null ? new ArrayList<String>() :  (ArrayList)sesion.getAttribute("fechas");
                 vendidos.clear();
                 fechas.clear();
                 ArrayList<MuebleVendido> total = cons.ArregloVendido();

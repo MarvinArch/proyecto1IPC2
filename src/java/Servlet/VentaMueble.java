@@ -69,7 +69,7 @@ public class VentaMueble extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sesion = request.getSession(true);
-        ArrayList<mueble> muebleCarrito = sesion.getAttribute("carrito") == null ? new ArrayList<>() :  (ArrayList)sesion.getAttribute("carrito");
+        ArrayList<mueble> muebleCarrito = sesion.getAttribute("carrito") == null ? new ArrayList<mueble>() :  (ArrayList)sesion.getAttribute("carrito");
         float total=0;
         if (request.getParameter("Cancelar")!=null) {
             response.sendRedirect("Area2/salaventas.jsp?li=si");

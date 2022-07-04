@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Inicio Sesion</title>
-        <LINK rel=StyleSheet href="Diseño/sesion.css">
+        <LINK rel=StyleSheet href="Desing/sesion.css">
     </head>
     <body>
         <h1 class="titulos">Tienda de Mueble Nombre de la tienda</h1>

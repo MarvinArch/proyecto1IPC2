@@ -39,7 +39,7 @@ and open the template in the editor.
     
 }
 body{
-    background-image: url("../Diseño/cocina.jpg");
+    background-image: url("cocina.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }
